@@ -13,6 +13,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { firebaseConfig } from './credentials';
 
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -21,7 +22,7 @@ import { firebaseConfig } from './credentials';
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig), 
-    AngularFirestoreModule
+    AngularFirestoreModule,
   ],
   providers: [
     StatusBar,

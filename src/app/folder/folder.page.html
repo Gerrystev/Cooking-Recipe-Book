@@ -4,6 +4,9 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>{{ folder }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="login">Log Out</ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -17,5 +20,6 @@
   <div id="container">
     <strong class="capitalize">{{ folder }}</strong>
     <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-button (click)="kelogin()">Teleport ke login</ion-button>
   </div>
 </ion-content>
