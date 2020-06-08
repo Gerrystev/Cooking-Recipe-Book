@@ -7,7 +7,7 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
-  //   path: '',
+    path: '',
   //   redirectTo: 'home',
   //   pathMatch: 'full'
   // },
@@ -21,7 +21,19 @@ const routes: Routes = [
   {
     path: 'signup',
     loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
+  },  {
+    path: 'upload-recipe',
+    loadChildren: () => import('./upload-recipe/upload-recipe.module').then( m => m.UploadRecipePageModule)
+  },
+  {
+    path: 'bookmark-recipes',
+    loadChildren: () => import('./bookmark-recipes/bookmark-recipes.module').then( m => m.BookmarkRecipesPageModule)
+  },
+  {
+    path: 'downloaded-recipes',
+    loadChildren: () => import('./downloaded-recipes/downloaded-recipes.module').then( m => m.DownloadedRecipesPageModule)
   }
+
 
 ];
 

@@ -1,40 +1,43 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button color="primary"></ion-menu-button>
+    </ion-buttons>
     <ion-searchbar placeholder="Search Menu.." animated></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div id="container">
 
+  </div>
 </ion-content>
 
 <ion-footer>
-  <!-- Button Home -->
-  <button class="footer-icon"> 
-    <div> 
-      <ion-icon name="home"></ion-icon> <br> 
-      <label>Home</label> 
-    </div> 
-  </button>
-  <!-- Button Upload -->
-  <button class="footer-icon"> 
-    <div> 
-      <ion-icon name="home"></ion-icon> <br> 
-      <label>Home</label> 
-    </div> 
-  </button>
-  <!-- Button Bookmark -->
-  <button class="footer-icon"> 
-    <div> 
-      <ion-icon name="home"></ion-icon> <br> 
-      <label>Home</label> 
-    </div> 
-  </button>
-  <!-- Button Download -->
-  <button class="footer-icon"> 
-    <div> 
-      <ion-icon name="home"></ion-icon> <br> 
-      <label>Home</label> 
-    </div> 
-  </button>
+  <ion-row>
+    <ion-col>
+      <!-- Button Home -->
+      <button class="footer-icon"> 
+        <ion-icon name="home" color="primary"></ion-icon> <br> 
+      </button>
+    </ion-col>
+    <ion-col>
+      <!-- Button Upload -->
+      <button class="footer-icon"> 
+        <ion-icon name="add-circle" color="primary" [routerLink]="['/upload-recipe']"></ion-icon> <br>
+      </button>
+    </ion-col>
+    <ion-col>
+      <!-- Button Bookmark -->
+      <button class="footer-icon"> 
+        <ion-icon name="bookmarks" color="primary" [routerLink]="['/bookmark-recipes']"></ion-icon> <br>
+      </button>
+    </ion-col>
+    <ion-col>
+      <!-- Button Download -->
+      <button class="footer-icon"> 
+        <ion-icon name="download" color="primary" [routerLink]="['/downloaded-recipes']"></ion-icon> <br>
+      </button>
+    </ion-col>
+  </ion-row>
 </ion-footer>
