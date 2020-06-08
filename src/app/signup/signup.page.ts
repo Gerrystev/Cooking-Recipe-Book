@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { user } from '../user.module';
+
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
+import { User } from '../user.model';
 
 @Component({
   selector: 'app-signup',
@@ -12,28 +13,34 @@ export class SignupPage implements OnInit {
 
   constructor(public route:Router,public fireStore:AngularFirestore) { }
   username:string;
-  nama:string;
+  email:string;
   password:string;
-  add:user;
+  date:Date;
+  add:User;
   user:string;
-  private resepcol:AngularFirestoreCollection<user>;
+  private resepcol:AngularFirestoreCollection<User>;
   ngOnInit() {
   }
   cancel(){
     this.route.navigate(['/login']);
   }
   signup(){
-    this.resepcol=this.fireStore.collection<user>('User');
-    this.add={
-      username: this.username,
-      password:this.password,
-      nama:this.nama,
-      id_download:"a1",
-      id_bookmark:"b1"
+    if(this.username === "" || this.password === "" || this.date === null || this.email===""){
+      alert("Fill in the Form");
     }
-    this.resepcol.doc(this.add.username).set(this.add);
-    this.username="";
-    this.password="";
-    this.nama="";
+    else{
+      this.resepcol=this.fireStore.collection<User>('User');
+      this.add={
+        username: this.username,
+        password:this.password,
+        email:this.email,
+        birthdate:this.date,
+      }
+      this.resepcol.doc(this.add.username).set(this.add);
+      this.username="";
+      this.password="";
+      this.email="";
+      this.date=null;
+    }
   }
 }
