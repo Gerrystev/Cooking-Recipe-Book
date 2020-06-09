@@ -24,7 +24,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
   login(){
-    if(this.password == "" || this.username == ""){
+    if(this.password != "" || this.username != ""){
       console.log(this.password);
       console.log(this.username);
       this.cariuser2 = this.getUser().valueChanges();
