@@ -4,13 +4,10 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
   {
     path: '',
-  //   redirectTo: 'home',
-  //   pathMatch: 'full'
-  // },
     redirectTo: 'login',
     pathMatch: 'full'
   },
@@ -21,20 +18,23 @@ const routes: Routes = [
   {
     path: 'signup',
     loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
-  },  {
+  },
+  {
     path: 'upload-recipe',
-    loadChildren: () => import('./upload-recipe/upload-recipe.module').then( m => m.UploadRecipePageModule)
+    loadChildren: () => import('./pages/upload-recipe/upload-recipe.module').then( m => m.UploadRecipePageModule)
   },
   {
     path: 'bookmark-recipes',
-    loadChildren: () => import('./bookmark-recipes/bookmark-recipes.module').then( m => m.BookmarkRecipesPageModule)
+    loadChildren: () => import('./pages/bookmark-recipes/bookmark-recipes.module').then( m => m.BookmarkRecipesPageModule)
   },
   {
     path: 'downloaded-recipes',
-    loadChildren: () => import('./downloaded-recipes/downloaded-recipes.module').then( m => m.DownloadedRecipesPageModule)
-  }
-
-
+    loadChildren: () => import('./pages/downloaded-recipes/downloaded-recipes.module').then( m => m.DownloadedRecipesPageModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
+  },
 ];
 
 @NgModule({

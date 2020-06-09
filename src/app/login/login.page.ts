@@ -24,28 +24,28 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
   login(){
-    if(this.password != "" || this.username != ""){
-      console.log(this.password);
-      console.log(this.username);
-      this.cariuser2 = this.getUser().valueChanges();
-      this.cariuser2.subscribe(user =>{
-        console.log(user);
-        this.cariuser = user;
-      })
-      console.log(this.cariuser2);
-      if(this.password === this.cariuser.password){
-        this.route.navigate(['/home']);
-      }
-      else{
-        this.username = "";
-        this.password = "";
-        alert("Password or Username salah!");
-      }
-    }
-    else{
-      alert("Fill in the Form");
-    }
-    
+    // if(this.password != "" || this.username != ""){
+    //   console.log(this.password);
+    //   console.log(this.username);
+    //   this.cariuser2 = this.getUser().valueChanges();
+    //   this.cariuser2.subscribe(user =>{
+    //     console.log(user);
+    //     this.cariuser = user;
+    //   })
+    //   console.log(this.cariuser2);
+    //   if(this.password === this.cariuser.password){
+    //     this.route.navigate(['./pages/tabs/tabs.module#TabsPageModule']);
+    //   }
+    //   else{
+    //     this.username = "";
+    //     this.password = "";
+    //     alert("Password or Username salah!");
+    //   }
+    // }
+    // else{
+    //   alert("Fill in the Form");
+    // }
+    this.route.navigate(['/tabs/home']);
   }
   signup(){
     this.route.navigate(['/signup']);
