@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
-import { User } from '../user.model';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-signup',
@@ -25,7 +25,7 @@ export class SignupPage implements OnInit {
     this.route.navigate(['/login']);
   }
   signup(){
-    if(this.username === "" || this.password === "" || this.date === null || this.email===""){
+    if(this.username == "" || this.password == "" || this.date == null || this.email == ""){
       alert("Fill in the Form");
     }
     else{

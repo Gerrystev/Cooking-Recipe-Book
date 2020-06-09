@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { User } from '../user.model';
+import { User } from '../models/user.model';
 
 
 
@@ -24,7 +24,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
   login(){
-    if(this.password === "" || this.username===""){
+    if(this.password == "" || this.username == ""){
       console.log(this.password);
       console.log(this.username);
       this.cariuser2 = this.getUser().valueChanges();
