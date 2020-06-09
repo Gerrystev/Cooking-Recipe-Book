@@ -34,7 +34,7 @@ export class LoginPage implements OnInit {
       })
       console.log(this.cariuser2);
       if(this.password === this.cariuser.password){
-        this.route.navigate(['/folder',"Inbox"]);
+        this.route.navigate(['/home']);
       }
       else{
         this.username = "";
