@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { Recipe } from '../models/recipe.model';
 
 @Component({
   selector: 'app-upload-recipe',
@@ -6,8 +9,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./upload-recipe.page.scss'],
 })
 export class UploadRecipePage implements OnInit {
-
-  constructor() { }
+  private recipeCloud: Observable<Recipe[]>;
+  private recipeColumn: AngularFirestoreCollection<Recipe>;
+  constructor(
+    private fireStore: AngularFirestore
+  ) {
+    this.recipeColumn = this.fireStore.collection<Recipe>('Recipes');
+  }
 
   ngOnInit() {
   }
@@ -15,7 +23,6 @@ export class UploadRecipePage implements OnInit {
   add_ingredients_field(){
     let markup = "<ion-row><ion-col><ion-input class=\"ingredients-field\" placeholder=\"1kg Sugar\"></ion-input></ion-col></ion-row>";
     document.getElementById("ingredients-section").outerHTML += markup;
-    console.log(document.getElementById("ingredients-section"));
   }
   
   add_directions_field(){
