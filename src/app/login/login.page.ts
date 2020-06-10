@@ -4,8 +4,6 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 
-
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',

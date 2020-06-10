@@ -9,17 +9,17 @@
 
 <ion-content>
   <div id="container">
-    <div id="media-section">
-      <label><h3>Add Media</h3></label>
-      <ion-row>
-        <ion-col>
-
-        </ion-col>
-      </ion-row>
-    </div>
     <ion-row>
       <ion-col>
-        <ion-button expand="block" fill="outline" (click)="add_ingredients_field()" class="add_field-button">Add Media</ion-button>
+        <img [src]="img1" *ngIf="img1">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="fileUpload btn btn-primary">
+          <span>ADD IMAGE</span>
+          <input type="file" class="upload" (change)="fileChange($event)"/>
+      </div>
       </ion-col>  
     </ion-row>
     <div>
