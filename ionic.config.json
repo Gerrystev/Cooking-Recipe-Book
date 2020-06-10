@@ -1,5 +1,7 @@
 {
   "name": "Cooking-Mama",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

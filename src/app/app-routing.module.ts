@@ -28,12 +28,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/bookmark-recipes/bookmark-recipes.module').then( m => m.BookmarkRecipesPageModule)
   },
   {
-    path: 'downloaded-recipes',
-    loadChildren: () => import('./pages/downloaded-recipes/downloaded-recipes.module').then( m => m.DownloadedRecipesPageModule)
-  },
-  {
     path: '',
     loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
+  },
+  {
+    path: 'details-recipe-online',
+    loadChildren: () => import('./pages/details-recipe-online/details-recipe-online.module').then( m => m.DetailsRecipeOnlinePageModule)
   },
 ];
 

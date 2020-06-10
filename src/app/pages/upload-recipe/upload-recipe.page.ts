@@ -41,16 +41,16 @@ export class UploadRecipePage implements OnInit {
   upload_recipe(){
     let classIngredients = document.getElementsByClassName("ingredients-field");
     let classDirections = document.getElementsByClassName("directions-field");
-
-    // insert ingredients to firebase
-    for(let i=0;i<classIngredients.length;i++){
-      let tempIngredient = {
-        id : 'string',
-        description : 'string',  
-        id_recipe : 'string'
-      }
-      this.ingredientsColumn.add(tempIngredient);
-    }
+    
+    // // insert ingredients to firebase
+    // for(let i=0;i<classIngredients.length;i++){
+    //   let tempIngredient = {
+    //     id : 'string',
+    //     description : 'string',  
+    //     id_recipe : 'string'
+    //   }
+    //   this.ingredientsColumn.add(tempIngredient);
+    // }
   }
 
   getLastRecipe(id: string) : AngularFirestoreDocument<Recipe> {

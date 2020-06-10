@@ -21,8 +21,8 @@ const routes: Routes = [
         loadChildren: () => import('../bookmark-recipes/bookmark-recipes.module').then( m => m.BookmarkRecipesPageModule)
       },
       {
-        path: 'downloaded-recipes',
-        loadChildren: () => import('../downloaded-recipes/downloaded-recipes.module').then( m => m.DownloadedRecipesPageModule)
+        path: 'details-recipe-online',
+        loadChildren: () => import('../details-recipe-online/details-recipe-online.module').then( m => m.DetailsRecipeOnlinePageModule)
       },
     ],
   },
