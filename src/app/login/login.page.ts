@@ -22,28 +22,32 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
   login(){
-    // if(this.password != "" || this.username != ""){
-    //   console.log(this.password);
-    //   console.log(this.username);
-    //   this.cariuser2 = this.getUser().valueChanges();
-    //   this.cariuser2.subscribe(user =>{
-    //     console.log(user);
-    //     this.cariuser = user;
-    //   })
-    //   console.log(this.cariuser2);
-    //   if(this.password === this.cariuser.password){
-    //     this.route.navigate(['./pages/tabs/tabs.module#TabsPageModule']);
-    //   }
-    //   else{
-    //     this.username = "";
-    //     this.password = "";
-    //     alert("Password or Username salah!");
-    //   }
-    // }
-    // else{
-    //   alert("Fill in the Form");
-    // }
-    this.route.navigate(['/tabs/home']);
+    if(typeof(this.password) !== "undefined" && typeof(this.username) !== "undefined"){
+      console.log(this.password);
+      console.log(this.username);
+      this.cariuser2 = this.getUser().valueChanges();
+      this.cariuser2.subscribe(user =>{
+        console.log(user);
+        this.cariuser = user;
+      })
+      console.log(this.cariuser2);
+      if(typeof(this.cariuser2) === "undefined"){
+        alert("Username tidak ditemukan");
+      }
+      else{
+        if(this.password === this.cariuser.password){
+          this.route.navigate(['/tabs/home']);
+        }
+        else{
+          this.username = "";
+          this.password = "";
+          alert("Password or Username salah!");
+        }
+      }
+    }
+    else{
+      alert("Fill in the Form");
+    }
   }
   signup(){
     this.route.navigate(['/signup']);

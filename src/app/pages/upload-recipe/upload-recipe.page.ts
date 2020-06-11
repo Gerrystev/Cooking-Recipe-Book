@@ -50,8 +50,8 @@ export class UploadRecipePage implements OnInit {
 
   upload_recipe(){
     var recipeId;
-    let classIngredients = <HTMLInputElement>document.getElementsByClassName(elementId);
-    let classDirections = <HTMLInputElement>document.getElementsByClassName(elementId);
+    // let classIngredients = <HTMLInputElement>document.getElementsByClassName(elementId);
+    // let classDirections = <HTMLInputElement>document.getElementsByClassName(elementId);
     
     // Insert Recipe
     let tempRecipe = {
@@ -73,37 +73,37 @@ export class UploadRecipePage implements OnInit {
       }).catch(error => {
         console.log(error);
       });
-      // insert ingredients to firebase
-      for(let i=0;i<classIngredients.length;i++){
-        let tempIngredient = {
-          id : 'string',
-          description : classIngredients[i].nodeValue,  
-          id_recipe : recipeId
-        }
-        this.ingredientsColumn.add(tempIngredient).then(resp => {
-          this.ingredientsColumn.doc(resp.id).update({
-            id: resp.id
-          }).catch(error => {
-            console.log(error);
-          });
-        });
-      }
+      // // insert ingredients to firebase
+      // for(let i=0;i<classIngredients.length;i++){
+      //   let tempIngredient = {
+      //     id : 'string',
+      //     description : classIngredients[i].nodeValue,  
+      //     id_recipe : recipeId
+      //   }
+      //   this.ingredientsColumn.add(tempIngredient).then(resp => {
+      //     this.ingredientsColumn.doc(resp.id).update({
+      //       id: resp.id
+      //     }).catch(error => {
+      //       console.log(error);
+      //     });
+      //   });
+      // }
 
-      // Insert Directions to Firebase
-      for(let i=0;i<classDirections.length;i++){
-        let tempDirection = {
-          id : 'string',
-          description : classDirections[i].nodeValue,  
-          id_recipe : recipeId
-        }
-        this.directionsColumn.add(tempDirection).then(async resp => {
-          this.directionsColumn.doc(resp.id).update({
-            id: resp.id
-          }).catch(error => {
-            console.log(error);
-          });
-        });
-      }
+      // // Insert Directions to Firebase
+      // for(let i=0;i<classDirections.length;i++){
+      //   let tempDirection = {
+      //     id : 'string',
+      //     description : classDirections[i].nodeValue,  
+      //     id_recipe : recipeId
+      //   }
+      //   this.directionsColumn.add(tempDirection).then(async resp => {
+      //     this.directionsColumn.doc(resp.id).update({
+      //       id: resp.id
+      //     }).catch(error => {
+      //       console.log(error);
+      //     });
+      //   });
+      // }
     });
   }
 

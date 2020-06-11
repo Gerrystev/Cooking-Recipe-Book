@@ -25,7 +25,7 @@ export class SignupPage implements OnInit {
     this.route.navigate(['/login']);
   }
   signup(){
-    if(this.username == "" || this.password == "" || this.date == null || this.email == ""){
+    if(typeof(this.username) === "undefined" || typeof(this.password) === "undefined" || typeof(this.date) === "undefined" || typeof(this.email) === "undefined"){
       alert("Fill in the Form");
     }
     else{
