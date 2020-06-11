@@ -1,19 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { Recipe } from '../../models/recipe.model';
-import { map } from 'rxjs/operators';
-import { Ingredient } from '../../models/ingredient.model';
-import { Media } from '../../models/media.model';
-import { Direction } from '../../models/direction.model';
-import { AngularFireStorage } from '@angular/fire/storage';
-import { LoadingController } from '@ionic/angular';
-import { async } from '@angular/core/testing';
+import { Component, OnInit } from "@angular/core";
+import {
+  AngularFirestoreCollection,
+  AngularFirestore,
+  AngularFirestoreDocument,
+} from "@angular/fire/firestore";
+import { Observable } from "rxjs";
+import { Recipe } from "../../models/recipe.model";
+import { map } from "rxjs/operators";
+import { Ingredient } from "../../models/ingredient.model";
+import { Media } from "../../models/media.model";
+import { Direction } from "../../models/direction.model";
+import { AngularFireStorage } from "@angular/fire/storage";
+import { LoadingController } from "@ionic/angular";
+import { async } from "@angular/core/testing";
 
 @Component({
-  selector: 'app-upload-recipe',
-  templateUrl: './upload-recipe.page.html',
-  styleUrls: ['./upload-recipe.page.scss'],
+  selector: "app-upload-recipe",
+  templateUrl: "./upload-recipe.page.html",
+  styleUrls: ["./upload-recipe.page.scss"],
 })
 export class UploadRecipePage implements OnInit {
   recipeCloud: Observable<Recipe[]>;
@@ -27,81 +31,102 @@ export class UploadRecipePage implements OnInit {
   constructor(
     private fireStore: AngularFirestore,
     private store: AngularFireStorage,
-    private loadingController : LoadingController
+    private loadingController: LoadingController
   ) {
-    this.recipeColumn = this.fireStore.collection<Recipe>('Recipes');
+    this.recipeColumn = this.fireStore.collection<Recipe>("Recipes");
     this.recipeCloud = this.recipeColumn.valueChanges();
-    this.ingredientsColumn = this.fireStore.collection<Ingredient>('Ingredients');
-    this.directionsColumn = this.fireStore.collection<Direction>('Directions');
+    this.ingredientsColumn = this.fireStore.collection<Ingredient>(
+      "Ingredients"
+    );
+    this.directionsColumn = this.fireStore.collection<Direction>("Directions");
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  add_ingredients_field(){
-    let markup = "<ion-row><ion-col><ion-input class=\"ingredients-field\" placeholder=\"1kg Sugar\"></ion-input></ion-col></ion-row>";
+  add_ingredients_field() {
+    let markup =
+      '<ion-row><ion-col><ion-input class="ingredients-field" placeholder="1kg Sugar"></ion-input></ion-col></ion-row>';
     document.getElementById("ingredients-section").outerHTML += markup;
   }
-  
-  add_directions_field(){
-    let markup = "<ion-row><ion-col><ion-input class=\"ingredients-field\" placeholder=\"Boil the water for 10 minutes\"></ion-input></ion-col></ion-row>";
+
+  add_directions_field() {
+    let markup =
+      '<ion-row><ion-col><ion-input class="directions-field" placeholder="Boil the water for 10 minutes"></ion-input></ion-col></ion-row>';
     document.getElementById("directions-section").outerHTML += markup;
   }
 
-  upload_recipe(){
+  upload_recipe() {
     var recipeId;
-    let classIngredients = <HTMLInputElement>document.getElementsByClassName(elementId);
-    let classDirections = <HTMLInputElement>document.getElementsByClassName(elementId);
-    
+    let classIngredients = <HTMLCollectionOf<HTMLIonInputElement>>(
+      document.getElementsByClassName("ingredients-field")
+    );
+    let classDirections = <HTMLCollectionOf<HTMLIonInputElement>>(
+      document.getElementsByClassName("directions-field")
+    );
+
     // Insert Recipe
     let tempRecipe = {
-      id : 'string',
-      title : 'stringRecipe',
-      time_cook : 'stringTime',
-      imageLink : 'File',
-      id_user : 'stringUser',
-      id_category : 'stringCategory'
-    }
+      id: "string",
+      title: "stringRecipe",
+      time_cook: "stringTime",
+      imageLink: "File",
+      id_user: "stringUser",
+      id_category: "stringCategory",
+    };
 
-    this.recipeColumn.add(tempRecipe).then(async resp => {
+    this.recipeColumn.add(tempRecipe).then(async (resp) => {
       recipeId = resp.id;
       console.log(recipeId);
       const imageUrl = await this.uploadFile(resp.id, this.selectedFile);
-      this.recipeColumn.doc(resp.id).update({
-        id: resp.id,
-        imageLink: imageUrl || null
-      }).catch(error => {
-        console.log(error);
-      });
+      this.recipeColumn
+        .doc(resp.id)
+        .update({
+          id: resp.id,
+          imageLink: imageUrl || null,
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
       // insert ingredients to firebase
-      for(let i=0;i<classIngredients.length;i++){
+      for (let i = 0; i < classIngredients.length; i++) {
+        console.log("Ingredients : " + classIngredients[i].value);
+
         let tempIngredient = {
-          id : 'string',
-          description : classIngredients[i].nodeValue,  
-          id_recipe : recipeId
-        }
-        this.ingredientsColumn.add(tempIngredient).then(resp => {
-          this.ingredientsColumn.doc(resp.id).update({
-            id: resp.id
-          }).catch(error => {
-            console.log(error);
-          });
+          id: "string",
+          description: classIngredients[i].value,
+          id_recipe: recipeId,
+        };
+        this.ingredientsColumn.add(tempIngredient).then((resp) => {
+          this.ingredientsColumn
+            .doc(resp.id)
+            .update({
+              id: resp.id,
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         });
       }
 
       // Insert Directions to Firebase
-      for(let i=0;i<classDirections.length;i++){
+      for (let i = 0; i < classDirections.length; i++) {
+        console.log("Directions : " + classDirections[i].value);
+
         let tempDirection = {
-          id : 'string',
-          description : classDirections[i].nodeValue,  
-          id_recipe : recipeId
-        }
-        this.directionsColumn.add(tempDirection).then(async resp => {
-          this.directionsColumn.doc(resp.id).update({
-            id: resp.id
-          }).catch(error => {
-            console.log(error);
-          });
+          id: "string",
+          description: classDirections[i].value,
+          id_recipe: recipeId,
+        };
+        this.directionsColumn.add(tempDirection).then(async (resp) => {
+          this.directionsColumn
+            .doc(resp.id)
+            .update({
+              id: resp.id,
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         });
       }
     });
@@ -109,44 +134,44 @@ export class UploadRecipePage implements OnInit {
 
   async presentLoading() {
     this.loading = await this.loadingController.create({
-      message: 'Please wait...'
+      message: "Please wait...",
     });
     return this.loading.present();
   }
 
   async uploadFile(id, file): Promise<any> {
-    if(file && file.length){
-      try{
+    if (file && file.length) {
+      try {
         this.presentLoading();
-        const task = await this.store.ref('recipes').child(id).put(file[0]);
+        const task = await this.store.ref("recipes").child(id).put(file[0]);
         this.loading.dismiss();
         return this.store.ref(`recipes/${id}`).getDownloadURL().toPromise();
-      } catch(error){
+      } catch (error) {
         console.log(error);
       }
     }
   }
 
-  remove(item){
+  remove(item) {
     console.log(item);
-    if(item.imageUrl){
+    if (item.imageUrl) {
       this.store.ref(`recipes/${item.id}`).delete();
     }
     this.recipeColumn.doc(item.id).delete();
   }
 
-  fileChange(event){
-    this.selectedFile = event.target.files
-    if(event.target.files && event.target.files[0]){
+  fileChange(event) {
+    this.selectedFile = event.target.files;
+    if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
 
-      reader.onload = (event:any) => {
+      reader.onload = (event: any) => {
         this.img1 = event.target.result;
-      }
+      };
       reader.readAsDataURL(event.target.files[0]);
     }
-      let fileList: FileList = event.target.files;  
-      let file: File = fileList[0];
-      console.log(file);
+    let fileList: FileList = event.target.files;
+    let file: File = fileList[0];
+    console.log(file);
   }
 }
