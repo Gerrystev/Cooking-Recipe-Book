@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { AuthenticationService } from './services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,17 +14,15 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 export class AppComponent{
   public selectedIndex = 0;
   public appPages = [
-    {
-      title: 'Logout',
-      url: '/login',
-      icon: 'log-out-outline'
-    }
+    
   ];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) {
     this.initializeApp();
   }
@@ -31,6 +31,17 @@ export class AppComponent{
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.authenticationService.authenticationState.subscribe(state => {
+        if (state) {
+          this.router.navigate(['tabs', 'home']);
+        } else {
+          this.router.navigate(['login']);
+        }
+      });
     });
+  }
+
+  logout() {
+    this.authenticationService.logout();
   }
 }

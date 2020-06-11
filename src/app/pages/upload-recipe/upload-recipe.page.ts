@@ -9,6 +9,7 @@ import { Direction } from '../../models/direction.model';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { LoadingController } from '@ionic/angular';
 import { async } from '@angular/core/testing';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-upload-recipe',
@@ -27,7 +28,8 @@ export class UploadRecipePage implements OnInit {
   constructor(
     private fireStore: AngularFirestore,
     private store: AngularFireStorage,
-    private loadingController : LoadingController
+    private loadingController : LoadingController,
+    private authService: AuthenticationService
   ) {
     this.recipeColumn = this.fireStore.collection<Recipe>('Recipes');
     this.recipeCloud = this.recipeColumn.valueChanges();
@@ -59,7 +61,7 @@ export class UploadRecipePage implements OnInit {
       title : 'stringRecipe',
       time_cook : 'stringTime',
       imageLink : 'File',
-      id_user : 'stringUser',
+      id_user : this.authService.authUser,
       id_category : 'stringCategory'
     }
 

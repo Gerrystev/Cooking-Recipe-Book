@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { LoadingController } from '@ionic/angular';
+import { AuthenticationService } from '../services/authentication.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class LoginPage implements OnInit {
   constructor(
     private route:Router,
     private fireStore:AngularFirestore,
-    private loadingController : LoadingController) { 
+    private loadingController : LoadingController,
+    private authService: AuthenticationService) { 
     this.resepCol = this.fireStore.collection<User>('User');
   }
 
@@ -34,7 +36,6 @@ export class LoginPage implements OnInit {
       this.presentLoading();
       this.cariuser2 = this.getUser().valueChanges();
       this.cariuser2.subscribe(user =>{
-        console.log(user);
         this.cariuser = user;
         this.loading.dismiss();
         if(typeof(this.cariuser2) === "undefined"){
@@ -42,6 +43,7 @@ export class LoginPage implements OnInit {
         }
         else{
           if(this.password === this.cariuser.password){
+            this.authService.login(this.username);
             this.route.navigate(['/tabs/home']);
           }
           else{
