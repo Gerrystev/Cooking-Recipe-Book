@@ -9,7 +9,6 @@
 
 <ion-content>
   <div id="container">
-    <ion-button [routerLink]="['/tabs/details-recipe-online']">To Details</ion-button>
     <ion-row>
       <ion-col *ngFor="let recipe of (recipeCloud | async)">
         <ion-card (click)="toDetails(recipe.id)">
@@ -19,8 +18,7 @@
           </ion-card-header>
         
           <ion-card-content>
-            Keep close to Nature's heart... and break clear away, once in awhile,
-            and climb a mountain or spend a week in the woods. Wash your spirit clean.
+            {{recipe.description}}
           </ion-card-content>
         </ion-card>    
       </ion-col>

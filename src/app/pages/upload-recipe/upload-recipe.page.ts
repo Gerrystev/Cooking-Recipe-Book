@@ -30,6 +30,7 @@ export class UploadRecipePage implements OnInit {
   title: string;
   hours: string;
   minutes: string;
+  description: string;
   ingredientsArray = [];
   directionsArray = [];
   constructor(
@@ -50,18 +51,10 @@ export class UploadRecipePage implements OnInit {
   ngOnInit() {}
 
   add_ingredients_field() {
-    // let markup =
-    //   '<ion-row><ion-col><ion-input class="ingredients-field" placeholder="1kg Sugar"></ion-input></ion-col></ion-row>';
-    //   console.log(document.getElementById("directions-section").outerHTML);
-    // document.getElementById("ingredients-section").outerHTML += markup;
     this.ingredientsArray.push({'value':''});
   }
 
   add_directions_field() {
-    // let markup =
-    //   '<ion-row><ion-col><ion-input class="directions-field" placeholder="Boil the water for 10 minutes"></ion-input></ion-col></ion-row>';
-    //   console.log(document.getElementById("directions-section").outerHTML);
-    // document.getElementById("directions-section").outerHTML += markup;
     this.directionsArray.push({'value':''});
   }
 
@@ -79,6 +72,7 @@ export class UploadRecipePage implements OnInit {
       let tempRecipe = {
         id: "string",
         title: this.title,
+        description: this.description,
         time_cook: this.hours + " Hours " + this.minutes + " Minutes",
         imageLink: "File",
         id_user: val,
