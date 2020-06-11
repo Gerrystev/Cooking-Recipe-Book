@@ -32,9 +32,6 @@ export class LoginPage implements OnInit {
         console.log(user);
         this.cariuser = user;
       })
-      fireStore.database.ref('/User/').orderByChild('uID').equalTo(this.uID).once('value', (snapshot) => {
-        console.log(snapshot.val().email)
-     })
       console.log(this.cariuser2);
       if(typeof(this.cariuser2) === "undefined"){
         alert("Username tidak ditemukan");
