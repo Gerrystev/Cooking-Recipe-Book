@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { User } from '../user.model';
 
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -17,7 +16,8 @@ export class LoginPage implements OnInit {
   password:string;
   cariuser : User;
   cariuser2 : Observable<User>
-  constructor(private route:Router,private fireStore:AngularFirestore) { 
+  constructor(private route:Router,
+    private fireStore:AngularFirestore) { 
     this.resepCol = this.fireStore.collection<User>('User');
   }
 
@@ -32,6 +32,9 @@ export class LoginPage implements OnInit {
         console.log(user);
         this.cariuser = user;
       })
+      fireStore.database.ref('/User/').orderByChild('uID').equalTo(this.uID).once('value', (snapshot) => {
+        console.log(snapshot.val().email)
+     })
       console.log(this.cariuser2);
       if(this.password === this.cariuser.password){
         this.route.navigate(['/folder',"Inbox"]);
@@ -45,7 +48,6 @@ export class LoginPage implements OnInit {
     else{
       alert("Fill in the Form");
     }
-    
   }
   signup(){
     this.route.navigate(['/signup']);
