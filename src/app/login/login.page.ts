@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { User } from '../user.model';
+import { User } from '../models/user.model';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
   login(){
-    if(this.password === "" || this.username===""){
+    if(typeof(this.password) !== "undefined" && typeof(this.username) !== "undefined"){
       console.log(this.password);
       console.log(this.username);
       this.cariuser2 = this.getUser().valueChanges();
@@ -36,13 +36,18 @@ export class LoginPage implements OnInit {
         console.log(snapshot.val().email)
      })
       console.log(this.cariuser2);
-      if(this.password === this.cariuser.password){
-        this.route.navigate(['/folder',"Inbox"]);
+      if(typeof(this.cariuser2) === "undefined"){
+        alert("Username tidak ditemukan");
       }
       else{
-        this.username = "";
-        this.password = "";
-        alert("Password or Username salah!");
+        if(this.password === this.cariuser.password){
+          this.route.navigate(['/tabs/home']);
+        }
+        else{
+          this.username = "";
+          this.password = "";
+          alert("Password or Username salah!");
+        }
       }
     }
     else{
