@@ -22,17 +22,18 @@
         </div>
       </ion-col>
     </ion-row>
-    <div>
-      <label id="ingredients-section"><h3>Ingredients</h3></label>
-      <ion-row>
-        <ion-col>
-          <ion-input
-            class="ingredients-field"
-            placeholder="1kg Sugar"
-          ></ion-input>
-        </ion-col>
-      </ion-row>
-    </div>
+    <label><h3>Title</h3></label>
+    <ion-row>
+      <ion-col>
+        <ion-input placeholder="Thin Crusted Pizza" [(ngModel)]="title"></ion-input>
+      </ion-col>
+    </ion-row>
+    <label><h3>Ingredients</h3></label>
+    <ion-row *ngFor="let ingredient of ingredientsArray">
+      <ion-col>
+        <ion-input class="ingredients-field" placeholder="1kg Sugar"></ion-input>
+      </ion-col>
+    </ion-row>
     <ion-row>
       <ion-col>
         <ion-button
@@ -46,7 +47,7 @@
     </ion-row>
     <div>
       <label id="directions-section"><h3>Directions</h3></label>
-      <ion-row>
+      <ion-row *ngFor="let direction of directionsArray">
         <ion-col>
           <ion-input
             class="directions-field"
@@ -65,13 +66,13 @@
     <label><h3>Time to Cook</h3></label>
     <ion-row>
       <ion-col>
-        <ion-input type="number" id="timeHours" placeholder="00"></ion-input>
+        <ion-input type="number" [(ngModel)]="hours" placeholder="00"></ion-input>
       </ion-col>
       <ion-col style="padding-top: 15px;">
         Hours
       </ion-col>
       <ion-col>
-        <ion-input type="number" id="timeMinutes" placeholder="40"></ion-input>
+        <ion-input type="number" [(ngModel)]="minutes" placeholder="40"></ion-input>
       </ion-col>
       <ion-col style="padding-top: 15px;">
         Minutes

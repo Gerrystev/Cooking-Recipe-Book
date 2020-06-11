@@ -31,15 +31,13 @@ export class LoginPage implements OnInit {
   }
   login(){
     if(typeof(this.password) !== "undefined" && typeof(this.username) !== "undefined"){
-      console.log(this.password);
-      console.log(this.username);
       this.presentLoading();
       this.cariuser2 = this.getUser().valueChanges();
       this.cariuser2.subscribe(user =>{
         this.cariuser = user;
         this.loading.dismiss();
-        if(typeof(this.cariuser2) === "undefined"){
-          alert("Username tidak ditemukan");
+        if(typeof(this.cariuser) === "undefined"){
+          alert("Username not Found");
         }
         else{
           if(this.password === this.cariuser.password){
@@ -49,7 +47,7 @@ export class LoginPage implements OnInit {
           else{
             this.username = "";
             this.password = "";
-            alert("Password or Username salah!");
+            alert("Password Incorrect");
           }
         }
       });
