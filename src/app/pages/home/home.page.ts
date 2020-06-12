@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActionSheetController, Platform } from '@ionic/angular';
 import { Observable } from 'rxjs';
-import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
+import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { map, throwIfEmpty, filter } from 'rxjs/operators';
 import { Recipe } from 'src/app/models/recipe.model';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,7 @@ import { Recipe } from 'src/app/models/recipe.model';
 export class HomePage implements OnInit {
   private recipeCloud: Observable<Recipe[]>;
   private recipeColumn: AngularFirestoreCollection<Recipe>;
+  public recipeList = [];
 
   constructor(
     private activatedRoute: ActivatedRoute, 
@@ -23,20 +25,37 @@ export class HomePage implements OnInit {
     private fireStore: AngularFirestore,
   ) {
     this.recipeColumn = this.fireStore.collection<Recipe>('Recipes');
-    this.recipeCloud = this.recipeColumn.snapshotChanges().pipe(
-      map(actions => {
-        return actions.map( a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return {id, ...data};
-        })
-      })
-    )
   }
- 
-  ngOnInit() {
-    
+
+  async initializeItems(): Promise<any> {
+    const foodList = await this.fireStore.collection('Recipes')
+      .valueChanges().pipe(first()).toPromise();
+    return foodList;
   }
+
+  async ngOnInit() {
+    this.recipeList = await this.initializeItems();
+  }
+
+  async ionViewWillEnter(){
+    this.recipeList = await this.initializeItems();
+  }
+
+  async search(evt) {
+    this.recipeList = await this.initializeItems();
+    const searchTerm = evt.srcElement.value;
+  
+    if (!searchTerm) {
+      return;
+    }
+  
+    this.recipeList = this.recipeList.filter(currentRecipe => {
+      if (currentRecipe.title && searchTerm) {
+        return (currentRecipe.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
+      }
+    });
+  }
+
   kelogin(){
     this.router.navigate(['/login']);
   }

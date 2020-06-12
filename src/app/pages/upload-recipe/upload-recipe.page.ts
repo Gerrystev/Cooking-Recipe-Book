@@ -81,7 +81,6 @@ export class UploadRecipePage implements OnInit {
   
       this.recipeColumn.add(tempRecipe).then(async (resp) => {
         recipeId = resp.id;
-        console.log(recipeId);
         const imageUrl = await this.uploadFile(resp.id, this.selectedFile);
         this.recipeColumn
           .doc(resp.id)
@@ -159,15 +158,7 @@ export class UploadRecipePage implements OnInit {
       }
     }
   }
-
-  remove(item) {
-    console.log(item);
-    if (item.imageUrl) {
-      this.store.ref(`recipes/${item.id}`).delete();
-    }
-    this.recipeColumn.doc(item.id).delete();
-  }
-
+  
   fileChange(event) {
     this.selectedFile = event.target.files;
     if (event.target.files && event.target.files[0]) {

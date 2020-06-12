@@ -3,20 +3,19 @@
     <ion-buttons slot="start">
       <ion-menu-button color="primary"></ion-menu-button>
     </ion-buttons>
-    <ion-searchbar placeholder="Search Menu.." animated></ion-searchbar>
+    <ion-searchbar placeholder="Search Menu.." (ionInput)="search($event)" animated></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div id="container">
     <ion-row>
-      <ion-col *ngFor="let recipe of (recipeCloud | async)">
+      <ion-col *ngFor="let recipe of recipeList">
         <ion-card (click)="toDetails(recipe.id)">
           <ion-card-header>
             <ion-card-title>{{recipe.title}}</ion-card-title>
             <ion-img [src]="recipe.imageLink"></ion-img>
           </ion-card-header>
-        
           <ion-card-content>
             {{recipe.description}}
           </ion-card-content>
