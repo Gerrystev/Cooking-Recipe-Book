@@ -35,9 +35,13 @@
     <ion-row id="image">
       <ion-img [src]="detresep.imageLink"></ion-img>
     </ion-row>
-    <div id="ingredients-slot">
+    <ion-label>Ingredients:</ion-label>
+    <div id="ingredients-slot" *ngFor="let x of ingredients">
+      <ion-list>- {{x.description}}</ion-list> 
     </div>
-    <div id="directions-slot">
+    <ion-label>Directions:</ion-label>
+    <div id="directions-slot" *ngFor="let x of direct">
+      <ion-list>Step {{x.step}}. {{x.description}}</ion-list> 
     </div>
     <ion-row>
       <label>

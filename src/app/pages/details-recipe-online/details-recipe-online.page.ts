@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Recipe } from 'src/app/models/recipe.model';
 import { Observable } from 'rxjs';
 import { Ingredient } from 'src/app/models/ingredient.model';
+import { Direction } from 'src/app/models/direction.model';
 
 @Component({
   selector: 'app-details-recipe-online',
@@ -15,9 +16,8 @@ export class DetailsRecipeOnlinePage implements OnInit {
   id:string;
   cariresep:Observable<Recipe>;
   detresep:Recipe;
-  ingredients:Observable<Ingredient>;
-  ingr:Ingredient;
-  private ingCol:AngularFirestoreCollection<Ingredient[]>;
+  ingredients:Ingredient[];
+  direct:Direction[];
   constructor(public Activatedrouter : ActivatedRoute,
     public router:Router,
     public firestore:AngularFirestore) {
@@ -34,6 +34,14 @@ export class DetailsRecipeOnlinePage implements OnInit {
         console.log(isiResep);
         this.detresep = isiResep;
       })
+       this.firestore.collection<Ingredient>('Ingredients', ref=> ref.where('id_recipe','==',this.id)).valueChanges().subscribe(val => {
+        console.log(val);
+        this.ingredients = val;
+       });
+       this.firestore.collection<Direction>('Directions', ref=> ref.where('id_recipe','==',this.id).orderBy('step')).valueChanges().subscribe(val => {
+        console.log(val);
+        this.direct = val;
+       });
     })
   }
   getResep(): AngularFirestoreDocument<Recipe>{
