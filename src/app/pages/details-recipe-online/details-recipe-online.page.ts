@@ -5,6 +5,7 @@ import { Recipe } from 'src/app/models/recipe.model';
 import { Observable } from 'rxjs';
 import { Ingredient } from 'src/app/models/ingredient.model';
 import { Direction } from 'src/app/models/direction.model';
+import { BookmarkedRecipe } from 'src/app/models/bookmarked_recipe.model';
 
 @Component({
   selector: 'app-details-recipe-online',
@@ -18,10 +19,14 @@ export class DetailsRecipeOnlinePage implements OnInit {
   detresep:Recipe;
   ingredients:Ingredient[];
   direct:Direction[];
+  book:Boolean;
+  bookmark:BookmarkedRecipe;
+  private bookCol:AngularFirestoreCollection<BookmarkedRecipe>;
   constructor(public Activatedrouter : ActivatedRoute,
     public router:Router,
     public firestore:AngularFirestore) {
       this.resepCol = this.firestore.collection<Recipe>('Resep');
+      this.bookCol= this.firestore.collection<BookmarkedRecipe>('Bookmark');
     }
   ngOnInit() {
     this.Activatedrouter.paramMap.subscribe(paramMap=>{
@@ -46,5 +51,7 @@ export class DetailsRecipeOnlinePage implements OnInit {
   }
   getResep(): AngularFirestoreDocument<Recipe>{
     return this.firestore.collection('Recipes').doc(this.id);
+  }
+  like(){
   }
 }

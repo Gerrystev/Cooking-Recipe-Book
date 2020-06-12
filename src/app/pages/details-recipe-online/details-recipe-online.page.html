@@ -35,6 +35,8 @@
     <ion-row id="image">
       <ion-img [src]="detresep.imageLink"></ion-img>
     </ion-row>
+    <ion-button color="light" (click)="like()"><ion-icon slot="icon-only" name="heart-outline"></ion-icon></ion-button>
+    <br>
     <ion-label>Ingredients:</ion-label>
     <div id="ingredients-slot" *ngFor="let x of ingredients">
       <ion-list>- {{x.description}}</ion-list> 
