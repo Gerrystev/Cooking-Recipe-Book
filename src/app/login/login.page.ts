@@ -34,19 +34,22 @@ export class LoginPage implements OnInit {
       this.presentLoading();
       this.cariuser2 = this.getUser().valueChanges();
       this.cariuser2.subscribe(user =>{
-        this.cariuser = user;
-        this.loading.dismiss();
+        this.cariuser = user;      
         if(typeof(this.cariuser) === "undefined"){
+          this.loading.dismiss();
           alert("Username not Found");
+
         }
         else{
           if(this.password === this.cariuser.password){
             this.authService.login(this.username);
+            this.loading.dismiss();
             this.route.navigate(['/tabs/home']);
           }
           else{
             this.username = "";
             this.password = "";
+            this.loading.dismiss();
             alert("Password Incorrect");
           }
         }

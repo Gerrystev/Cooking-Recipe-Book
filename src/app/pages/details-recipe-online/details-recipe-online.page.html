@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Nama Resep</ion-title>
+    <div *ngIf="cariresep | async"><ion-title>{{detresep.title}}</ion-title></div>
   </ion-toolbar>
 </ion-header>
 
@@ -31,21 +31,18 @@
       </ion-chip>
     </ion-col>
   </ion-row>
-  <div id="container">
+  <div id="container" *ngIf="cariresep | async">
     <ion-row id="image">
-
+      <ion-img [src]="detresep.imageLink"></ion-img>
     </ion-row>
     <div id="ingredients-slot">
-
     </div>
     <div id="directions-slot">
-
     </div>
     <ion-row>
       <label>
         <span>Time to Cook: </span>
-        <span>0 </span> <span>Hours </span>
-        <span>0 </span> <span>Minutes</span>
+        <span>{{detresep.time_cook}}</span>
       </label>
     </ion-row>
   </div>
