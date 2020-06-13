@@ -1,4 +1,7 @@
 export interface Category {
-    id : string;
-    name : string;
+  id: string;
+  title: string;
+  description: string;
+  image_link: string;
+  time_cook: string;
 }

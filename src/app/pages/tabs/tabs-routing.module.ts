@@ -12,22 +12,27 @@ const routes: Routes = [
       {
         path: 'home',
         canActivate: [AuthGuard],
-        loadChildren: () => import('../home/home.module').then( m => m.HomePageModule)
+        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
       },
       {
         path: 'upload-recipe',
         canActivate: [AuthGuard],
-        loadChildren: () => import('../upload-recipe/upload-recipe.module').then( m => m.UploadRecipePageModule)
+        loadChildren: () => import('../upload-recipe/upload-recipe.module').then(m => m.UploadRecipePageModule)
       },
       {
         path: 'bookmark-recipes',
         canActivate: [AuthGuard],
-        loadChildren: () => import('../bookmark-recipes/bookmark-recipes.module').then( m => m.BookmarkRecipesPageModule)
+        loadChildren: () => import('../bookmark-recipes/bookmark-recipes.module').then(m => m.BookmarkRecipesPageModule)
       },
       {
         path: 'details-recipe-online',
         canActivate: [AuthGuard],
-        loadChildren: () => import('../details-recipe-online/details-recipe-online.module').then( m => m.DetailsRecipeOnlinePageModule)
+        loadChildren: () => import('../details-recipe-online/details-recipe-online.module').then(m => m.DetailsRecipeOnlinePageModule)
+      },
+      {
+        path: 'category',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('../category/category.module').then(m => m.CategoryPageModule)
       },
     ],
   },
@@ -42,4 +47,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule { }
