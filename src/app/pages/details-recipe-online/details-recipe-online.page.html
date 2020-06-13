@@ -3,7 +3,9 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/home"></ion-back-button>
     </ion-buttons>
-    <div *ngIf="cariresep | async"><ion-title>{{detresep.title}}</ion-title></div>
+    <div *ngIf="cariresep | async">
+      <ion-title>{{detresep.title}}</ion-title>
+    </div>
   </ion-toolbar>
 </ion-header>
 
@@ -12,21 +14,9 @@
     <ion-col>
       <ion-chip>
         <ion-icon name="pin" color="primary"></ion-icon>
-        <ion-label>Icon Chip</ion-label>
-        <ion-icon name="close"></ion-icon>
-      </ion-chip>
-    </ion-col>
-    <ion-col>
-      <ion-chip>
-        <ion-icon name="pin" color="primary"></ion-icon>
-        <ion-label>Icon Chip</ion-label>
-        <ion-icon name="close"></ion-icon>
-      </ion-chip>
-    </ion-col>
-    <ion-col>
-      <ion-chip>
-        <ion-icon name="pin" color="primary"></ion-icon>
-        <ion-label>Icon Chip</ion-label>
+        <div *ngIf="cariCategory | async">
+          <ion-label>{{category.title}}</ion-label>
+        </div>
         <ion-icon name="close"></ion-icon>
       </ion-chip>
     </ion-col>
@@ -35,15 +25,17 @@
     <ion-row id="image">
       <ion-img [src]="detresep.imageLink"></ion-img>
     </ion-row>
-    <ion-button color="light" (click)="like()"><ion-icon slot="icon-only" name="heart-outline"></ion-icon></ion-button>
+    <ion-button color="light" (click)="like()">
+      <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
+    </ion-button>
     <br>
     <ion-label>Ingredients:</ion-label>
     <div id="ingredients-slot" *ngFor="let x of ingredients">
-      <ion-list>- {{x.description}}</ion-list> 
+      <ion-list>- {{x.description}}</ion-list>
     </div>
     <ion-label>Directions:</ion-label>
     <div id="directions-slot" *ngFor="let x of direct">
-      <ion-list>Step {{x.step}}. {{x.description}}</ion-list> 
+      <ion-list>Step {{x.step}}. {{x.description}}</ion-list>
     </div>
     <ion-row>
       <label>
