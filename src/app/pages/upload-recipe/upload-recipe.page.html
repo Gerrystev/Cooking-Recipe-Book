@@ -22,22 +22,37 @@
         </div>
       </ion-col>
     </ion-row>
-    <label><h3>Title</h3></label>
+    <label>
+      <h3>Title</h3>
+    </label>
     <ion-row>
       <ion-col>
         <ion-input placeholder="Thin Crusted Pizza" [(ngModel)]="title"></ion-input>
       </ion-col>
     </ion-row>
-    <label><h3>Description</h3></label>
+    <label>
+      <h3>Description</h3>
+    </label>
     <ion-row>
       <ion-col>
         <ion-input placeholder="Everybody love pizza let's make this pizza!" [(ngModel)]="description"></ion-input>
       </ion-col>
     </ion-row>
+    <label>
+      <h3>Category</h3>
+    </label>
     <ion-row>
-      
+      <ion-select [(ngModel)]="category">
+        <ion-select-option *ngFor="let category of categoryCloud | async" value="{{category.id}}">{{category.title}}
+        </ion-select-option>
+      </ion-select>
     </ion-row>
-    <label><h3>Ingredients</h3></label>
+    <ion-row>
+
+    </ion-row>
+    <label>
+      <h3>Ingredients</h3>
+    </label>
     <ion-row *ngFor="let ingredient of ingredientsArray">
       <ion-col>
         <ion-input class="ingredients-field" placeholder="1kg Sugar"></ion-input>
@@ -45,32 +60,23 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-button
-          expand="block"
-          fill="outline"
-          (click)="add_ingredients_field()"
-          class="add_field-button"
-          >Add Ingredients</ion-button
-        >
+        <ion-button expand="block" fill="outline" (click)="add_ingredients_field()" class="add_field-button">Add
+          Ingredients</ion-button>
       </ion-col>
     </ion-row>
-    <label id="directions-section"><h3>Directions</h3></label>
+    <label id="directions-section">
+      <h3>Directions</h3>
+    </label>
     <ion-row *ngFor="let direction of directionsArray">
       <ion-col>
-        <ion-input
-          class="directions-field"
-          placeholder="Boil the water for 10 minutes"
-        ></ion-input>
+        <ion-input class="directions-field" placeholder="Boil the water for 10 minutes"></ion-input>
       </ion-col>
     </ion-row>
-    <ion-button
-      expand="block"
-      fill="outline"
-      (click)="add_directions_field()"
-      class="add_field-button"
-      >Add Directions</ion-button
-    >
-    <label><h3>Time to Cook</h3></label>
+    <ion-button expand="block" fill="outline" (click)="add_directions_field()" class="add_field-button">Add Directions
+    </ion-button>
+    <label>
+      <h3>Time to Cook</h3>
+    </label>
     <ion-row>
       <ion-col>
         <ion-input type="number" [(ngModel)]="hours" placeholder="00"></ion-input>
@@ -85,8 +91,6 @@
         Minutes
       </ion-col>
     </ion-row>
-    <ion-button color="success" expand="block" (click)="upload_recipe()"
-      >Upload Menu</ion-button
-    >
+    <ion-button color="success" expand="block" (click)="upload_recipe()">Upload Menu</ion-button>
   </div>
 </ion-content>

@@ -6,6 +6,7 @@ import {
 } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
 import { Recipe } from "../../models/recipe.model";
+import { Category } from "../../models/category.model";
 import { Ingredient } from "../../models/ingredient.model";
 import { Direction } from "../../models/direction.model";
 import { AngularFireStorage } from "@angular/fire/storage";
@@ -20,7 +21,9 @@ import { Storage } from '@ionic/storage';
 })
 export class UploadRecipePage implements OnInit {
   recipeCloud: Observable<Recipe[]>;
+  categoryCloud: Observable<Category[]>;
   private recipeColumn: AngularFirestoreCollection<Recipe>;
+  private categoryColumn: AngularFirestoreCollection<Category>;
   private ingredientsColumn: AngularFirestoreCollection<Ingredient>;
   private directionsColumn: AngularFirestoreCollection<Direction>;
 
@@ -31,6 +34,7 @@ export class UploadRecipePage implements OnInit {
   hours: string;
   minutes: string;
   description: string;
+  category : string;
   ingredientsArray = [];
   directionsArray = [];
   constructor(
@@ -41,21 +45,23 @@ export class UploadRecipePage implements OnInit {
     private storage: Storage
   ) {
     this.recipeColumn = this.fireStore.collection<Recipe>("Recipes");
+    this.categoryColumn = this.fireStore.collection<Category>("Category");
     this.recipeCloud = this.recipeColumn.valueChanges();
+    this.categoryCloud = this.categoryColumn.valueChanges();
     this.ingredientsColumn = this.fireStore.collection<Ingredient>("Ingredients");
     this.directionsColumn = this.fireStore.collection<Direction>("Directions");
-    this.ingredientsArray.push({'value':''});
-    this.directionsArray.push({'value':''});
+    this.ingredientsArray.push({ 'value': '' });
+    this.directionsArray.push({ 'value': '' });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   add_ingredients_field() {
-    this.ingredientsArray.push({'value':''});
+    this.ingredientsArray.push({ 'value': '' });
   }
 
   add_directions_field() {
-    this.directionsArray.push({'value':''});
+    this.directionsArray.push({ 'value': '' });
   }
 
   upload_recipe() {
@@ -76,9 +82,9 @@ export class UploadRecipePage implements OnInit {
         time_cook: this.hours + " Hours " + this.minutes + " Minutes",
         imageLink: "File",
         id_user: val,
-        id_category: "stringCategory",
+        id_category: this.category,
       };
-  
+
       this.recipeColumn.add(tempRecipe).then(async (resp) => {
         recipeId = resp.id;
         const imageUrl = await this.uploadFile(resp.id, this.selectedFile);
@@ -91,11 +97,11 @@ export class UploadRecipePage implements OnInit {
           .catch((error) => {
             console.log(error);
           });
-  
+
         // insert ingredients to firebase
         for (let i = 0; i < classIngredients.length; i++) {
           console.log("Ingredients : " + classIngredients[i].value);
-  
+
           let tempIngredient = {
             id: "string",
             description: classIngredients[i].value,
@@ -113,11 +119,11 @@ export class UploadRecipePage implements OnInit {
               });
           });
         }
-  
+
         // Insert Directions to Firebase
         for (let i = 0; i < classDirections.length; i++) {
           console.log("Directions : " + classDirections[i].value);
-  
+
           let tempDirection = {
             id: "string",
             description: classDirections[i].value,
@@ -135,7 +141,7 @@ export class UploadRecipePage implements OnInit {
               });
           });
         }
-      }); 
+      });
     });
   }
 
@@ -158,7 +164,7 @@ export class UploadRecipePage implements OnInit {
       }
     }
   }
-  
+
   fileChange(event) {
     this.selectedFile = event.target.files;
     if (event.target.files && event.target.files[0]) {
