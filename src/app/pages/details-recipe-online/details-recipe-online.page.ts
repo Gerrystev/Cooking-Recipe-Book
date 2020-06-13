@@ -9,8 +9,7 @@ import { BookmarkedRecipe } from 'src/app/models/bookmarked_recipe.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { LoadingController } from '@ionic/angular';
-import { promise } from 'protractor';
-import { Location } from '@angular/common';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-details-recipe-online',
@@ -35,7 +34,7 @@ export class DetailsRecipeOnlinePage implements OnInit {
     private authService: AuthenticationService,
     private storage: Storage,
     private loadingController : LoadingController,
-    private location:Location) {
+    public navCtrl: NavController) {
       this.resepCol = this.firestore.collection<Recipe>('Resep');
       this.bookCol= this.firestore.collection<BookmarkedRecipe>('Bookmark');
     }
@@ -124,7 +123,8 @@ export class DetailsRecipeOnlinePage implements OnInit {
       })
     }
     // this.router.navigateByUrl(['/tabs/details-recipe-online', this.id]);
-    location.reload();
+    // location.reload();
+    this.navCtrl.navigateRoot(['/tabs/details-recipe-online', this.id]);
   }
   async presentLoading() {
     this.loading = await this.loadingController.create({
