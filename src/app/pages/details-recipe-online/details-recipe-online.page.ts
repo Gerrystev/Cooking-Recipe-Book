@@ -9,6 +9,8 @@ import { BookmarkedRecipe } from 'src/app/models/bookmarked_recipe.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { LoadingController } from '@ionic/angular';
+import { promise } from 'protractor';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-details-recipe-online',
@@ -32,9 +34,12 @@ export class DetailsRecipeOnlinePage implements OnInit {
     public firestore:AngularFirestore,
     private authService: AuthenticationService,
     private storage: Storage,
-    private loadingController : LoadingController,) {
+    private loadingController : LoadingController,
+    private location:Location) {
       this.resepCol = this.firestore.collection<Recipe>('Resep');
       this.bookCol= this.firestore.collection<BookmarkedRecipe>('Bookmark');
+    }
+    IonViewEnter(){
     }
   ngOnInit() {
     this.Activatedrouter.paramMap.subscribe(paramMap=>{
@@ -55,6 +60,21 @@ export class DetailsRecipeOnlinePage implements OnInit {
         console.log(val);
         this.direct = val;
        });
+       this.storage.get('auth-token').then(async data=>{
+        this.firestore.collection<BookmarkedRecipe>('Bookmark',ref=>ref.where('id_user','==',data).where('id_recipe','==',this.id)).valueChanges()
+        .subscribe(val =>{
+          if(val[0].id_recipe === this.id){
+            console.log(val[0].id_recipe);
+            console.log(this.id);
+            this.book=1;
+          }
+          else if(typeof(val[0]) === "undefined"){
+            console.log(val[0].id_recipe);
+            console.log(this.id);
+            this.book=0;
+          }
+        })
+      })
     })
   }
   getResep(): AngularFirestoreDocument<Recipe>{
@@ -62,10 +82,10 @@ export class DetailsRecipeOnlinePage implements OnInit {
   }
   like(){
     this.presentLoading();
+    console.log(this.book);
     if(this.book === 0){
       console.log("tes");
       var bookID;
-      this.book=1;
       this.storage.get('auth-token').then(async val => {
         let tempbook = {
           id: "string",
@@ -81,18 +101,17 @@ export class DetailsRecipeOnlinePage implements OnInit {
         .catch((error)=>{
           console.log(error);
         }); 
-        this.loading.dismiss();     
+        this.loading.dismiss();  
       });
     });
     }
     else{
-      this.book=0;
       var userid,idbook;
       this.storage.get('auth-token').then(async val => {
         userid=val;
         this.firestore.collection<BookmarkedRecipe>('Bookmark',ref=>ref.where('id_recipe','==',this.id).where('id_user','==',userid)).valueChanges().subscribe(val =>{
           this.bmk=val;
-          idbook= this.bmk[0].id
+          idbook= this.bmk[0].id;
           if(typeof(idbook) === "undefined"){
             console.log("Tidak terbookmarked");
           }
@@ -100,10 +119,12 @@ export class DetailsRecipeOnlinePage implements OnInit {
             this.bookCol.doc(idbook).delete();
             alert("Unbookmarked");
           }
-          this.loading.dismiss();     
+          this.loading.dismiss();    
         });
       })
     }
+    // this.router.navigateByUrl(['/tabs/details-recipe-online', this.id]);
+    location.reload();
   }
   async presentLoading() {
     this.loading = await this.loadingController.create({
@@ -112,5 +133,7 @@ export class DetailsRecipeOnlinePage implements OnInit {
       cssClass:'my-custom'
     });
     return this.loading.present();
+  }
+  cekbookmark(){
   }
 }
