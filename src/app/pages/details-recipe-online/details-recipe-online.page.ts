@@ -12,6 +12,8 @@ import { Storage } from '@ionic/storage';
 import { LoadingController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { CategoryPageRoutingModule } from '../category/category-routing.module';
+import { stringify } from 'querystring';
+import { Comment } from 'src/app/models/comment.model';
 
 @Component({
   selector: 'app-details-recipe-online',
@@ -20,6 +22,7 @@ import { CategoryPageRoutingModule } from '../category/category-routing.module';
 })
 export class DetailsRecipeOnlinePage implements OnInit {
   private resepCol: AngularFirestoreCollection<Recipe>;
+  private commentCol: AngularFirestoreCollection<Comment>;
   id: string;
   idCategory: string;
   loading: HTMLIonLoadingElement;
@@ -32,6 +35,9 @@ export class DetailsRecipeOnlinePage implements OnInit {
   book = 0;
   bmk: BookmarkedRecipe[];
   bookmark: BookmarkedRecipe;
+  rating: number;
+  idUser: string;
+  comment: string;
 
   private bookCol: AngularFirestoreCollection<BookmarkedRecipe>;
   constructor(public Activatedrouter: ActivatedRoute,
@@ -43,6 +49,7 @@ export class DetailsRecipeOnlinePage implements OnInit {
     public navCtrl: NavController) {
     this.resepCol = this.firestore.collection<Recipe>('Resep');
     this.bookCol = this.firestore.collection<BookmarkedRecipe>('Bookmark');
+    this.commentCol = this.firestore.collection<Comment>('Comments');
   }
   IonViewEnter() {
   }
@@ -73,8 +80,9 @@ export class DetailsRecipeOnlinePage implements OnInit {
         console.log(val);
         this.direct = val;
       });
-
+      
       this.storage.get('auth-token').then(async data => {
+        this.idUser = data;
         this.firestore.collection<BookmarkedRecipe>('Bookmark', ref => ref.where('id_user', '==', data).where('id_recipe', '==', this.id)).valueChanges()
           .subscribe(val => {
             if (typeof (val[0]) === "undefined") {
@@ -127,7 +135,8 @@ export class DetailsRecipeOnlinePage implements OnInit {
       var userid, idbook;
       this.storage.get('auth-token').then(async val => {
         userid = val;
-        this.firestore.collection<BookmarkedRecipe>('Bookmark', ref => ref.where('id_recipe', '==', this.id).where('id_user', '==', userid)).valueChanges().subscribe(val => {
+        this.firestore.collection<BookmarkedRecipe>('Bookmark', ref => ref.where('id_recipe', '==', this.id)
+        .where('id_user', '==', userid)).valueChanges().subscribe(val => {
           this.bmk = val;
           idbook = this.bmk[0].id;
           if (typeof (idbook) === "undefined") {
@@ -156,5 +165,26 @@ export class DetailsRecipeOnlinePage implements OnInit {
   }
 
   cekbookmark() {
+  }
+
+  post_comment(){
+    let tempComment = {
+      id : 'id',
+      content : this.comment,
+      rating : this.rating,
+      id_user : this.idUser,
+      id_recipe : this.id
+    };
+
+    this.commentCol.add(tempComment).then(async (resp) => {
+      this.presentLoading();
+      await this.commentCol.doc(resp.id).update({
+        id: resp.id,
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      this.loading.dismiss();
+    });
   }
 }

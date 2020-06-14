@@ -59,7 +59,6 @@
         <div class="comment-content">
           <div class="comment-header">
             <h4>Gerry</h4>
-            <rating [(rating)]="rating" class="comment-rating"></rating>
           </div>
           <p class="comment-txt">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae sit fugit nam impedit rerum unde animi maiores quod dignissimos optio recusandae magnam voluptas tenetur obcaecati quis iure, rem repellat mollitia?</p>
         </div>
@@ -69,7 +68,7 @@
             <h6 class="comment-title">My Rating</h6>
             <rating [(rating)]="rating"></rating>
           </div>
-          <textarea name="" id="">
+          <textarea placeholder="Post your comment...." [(ngModel)]="comment">
             
           </textarea>
           <ion-button color="primary" (click)="post_comment()">Send</ion-button>
