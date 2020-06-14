@@ -9,8 +9,8 @@
 
 <ion-content>
   <div id="container">
-    <ion-row>
-      <ion-col *ngFor="let recipe of recipeList">
+    <ion-row *ngFor="let recipe of recipeList">
+      <ion-col>
         <ion-card (click)="toDetails(recipe.id)">
           <ion-card-header>
             <ion-card-title>{{recipe.title}}</ion-card-title>

@@ -37,6 +37,9 @@ export class UploadRecipePage implements OnInit {
   category : string;
   ingredientsArray = [];
   directionsArray = [];
+
+  // Comment
+  myComment: string;
   constructor(
     private fireStore: AngularFirestore,
     private store: AngularFireStorage,

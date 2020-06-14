@@ -1,9 +1,84 @@
+// General
 #container{
-    margin: 10px;
+    margin: 0 auto;
+}
+h4{
+    font-size: 18px;
+}
+h6{
+    margin-bottom: 10px;
+}
+textarea{
+    width: 100%;
+    margin: 1px;
+    border: 1px solid #e1e1e1;
+    height: 100px;
+    margin-top: 10px;
 }
 
 .my-custom{
     --background:#222;
     --spinner-color:#ffc409;
     color:#fff;
+}
+
+// Section
+.section-wrapper{
+    margin: 0 auto;
+    width: 80%;
+}
+.section{
+    margin-bottom: 20px;
+}
+.section-title{
+    font-size: 24px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+.section-content{
+}
+.section-text{
+    font-size: 14px;
+    color: gray;
+    padding: 0;
+    margin-bottom: 5px;
+}
+.bookmark-btn{
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    --ion-color-contrast: red !important;
+    --ion-color-base: #fff !important;
+    // --box-shadow: none !important;
+    --border-radius: 40px;
+    width: 40px;
+    height: 40px;
+    font-size: 10px;
+}
+.category-tab{
+    padding: 20px;
+}
+
+.comment-content{
+    margin-bottom: 20px;
+    padding: 15px;
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+.comment-input{
+    padding: 0;
+    box-shadow: none;
+}
+.comment-header{
+    position: relative;
+}
+.comment-rating{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.comment-txt{
+    color: #a1a1a1;
+    line-height: 24px;
+    font-size: 14px;
 }

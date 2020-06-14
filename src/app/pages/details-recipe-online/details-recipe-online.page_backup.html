@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-row id="category" class="category-tab">
+  <ion-row id="category">
     <ion-col>
       <ion-chip>
         <ion-icon name="pin" color="primary"></ion-icon>
@@ -25,60 +25,9 @@
     <ion-row id="image">
       <ion-img [src]="detresep.imageLink"></ion-img>
     </ion-row>
-    <ion-button color="light" (click)="like()" class="bookmark-btn">
+    <ion-button color="light" (click)="like()">
       <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
     </ion-button>
-
-    <div class="section-wrapper">
-      <div class="section">
-        <h3 class="section-title">Time to cook:</h3>
-        <div class="section-content">
-          <p class="section-text">{{detresep.time_cook}}</p>
-        </div>
-      </div>
-      <div class="section">
-        <h3 class="section-title">Ingredients</h3>
-        <div class="section-content">
-          <div id="ingredients-slot" *ngFor="let x of ingredients" >
-            <ion-list class="section-text">{{x.description}}</ion-list>
-          </div>
-        </div>
-      </div>
-      <div class="section">
-        <h3 class="section-title">Directions</h3>
-        <div class="section-content">
-          <div id="directions-slot" *ngFor="let x of direct">
-            <ion-list class="section-text">Step {{x.step + 1}}. {{x.description}}</ion-list>
-          </div>
-        </div>
-      </div>
-
-      <div class="section">
-        <h3 class="section-title">Comments</h3>
-
-        <div class="comment-content">
-          <div class="comment-header">
-            <h4>Gerry</h4>
-            <rating [(rating)]="rating" class="comment-rating"></rating>
-          </div>
-          <p class="comment-txt">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae sit fugit nam impedit rerum unde animi maiores quod dignissimos optio recusandae magnam voluptas tenetur obcaecati quis iure, rem repellat mollitia?</p>
-        </div>
-
-        <div class="comment-content comment-input">
-          <div class="comment-header">
-            <h6 class="comment-title">My Rating</h6>
-            <rating [(rating)]="rating"></rating>
-          </div>
-          <textarea name="" id="">
-            
-          </textarea>
-          <ion-button color="primary" (click)="post_comment()">Send</ion-button>
-        </div>
-      </div>
-
-    </div>
-
-    <!--
     <ion-label>Ingredients:</ion-label>
     <div id="ingredients-slot" *ngFor="let x of ingredients">
       <ion-list>- {{x.description}}</ion-list>
@@ -93,7 +42,6 @@
         <span>{{detresep.time_cook}}</span>
       </label>
     </ion-row>
-    
     <ion-card>
       <ion-card-header>
         <ion-card-title>My Comment</ion-card-title>
@@ -117,7 +65,5 @@
         <ion-button color="primary" (click)="post_comment()">Send</ion-button>
       </ion-card-content>
     </ion-card>
-
-    -->
   </div>
 </ion-content>

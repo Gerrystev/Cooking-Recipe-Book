@@ -77,15 +77,13 @@ export class DetailsRecipeOnlinePage implements OnInit {
       this.storage.get('auth-token').then(async data => {
         this.firestore.collection<BookmarkedRecipe>('Bookmark', ref => ref.where('id_user', '==', data).where('id_recipe', '==', this.id)).valueChanges()
           .subscribe(val => {
-            if (val[0].id_recipe === this.id) {
+            if (typeof (val[0]) === "undefined") {
+              this.book = 0;
+            }
+            else if (val[0].id_recipe === this.id) {
               console.log(val[0].id_recipe);
               console.log(this.id);
               this.book = 1;
-            }
-            else if (typeof (val[0]) === "undefined") {
-              console.log(val[0].id_recipe);
-              console.log(this.id);
-              this.book = 0;
             }
           })
       })

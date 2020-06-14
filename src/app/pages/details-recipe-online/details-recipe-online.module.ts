@@ -8,6 +8,7 @@ import { DetailsRecipeOnlinePageRoutingModule } from './details-recipe-online-ro
 
 import { DetailsRecipeOnlinePage } from './details-recipe-online.page';
 
+import { RatingComponent } from '../../rating/rating.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +16,6 @@ import { DetailsRecipeOnlinePage } from './details-recipe-online.page';
     IonicModule,
     DetailsRecipeOnlinePageRoutingModule
   ],
-  declarations: [DetailsRecipeOnlinePage]
+  declarations: [DetailsRecipeOnlinePage, RatingComponent]
 })
 export class DetailsRecipeOnlinePageModule {}
