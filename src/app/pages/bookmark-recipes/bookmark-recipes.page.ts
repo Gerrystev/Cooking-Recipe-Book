@@ -21,36 +21,43 @@ export class BookmarkRecipesPage implements OnInit {
   constructor(public router:Router,
     private firestore:AngularFirestore,
     private storage: Storage){
-      var data;
-      this.bookCol=this.firestore.collection<BookmarkedRecipe>('Bookmark');
-      this.storage.get('auth-token').then(async val=>{
-        this.iduser=val;
-        this.firestore.collection<BookmarkedRecipe>('Bookmark',ref=>ref.where('id_user','==',this.iduser)).valueChanges().subscribe(val =>{
-            console.log(val);
-            this.allbook=val;
-            console.log(this.allbook.length);
-            for(var i=0;i<this.allbook.length;i++ ){
-              console.log(this.allbook[i].id_recipe);
-              this.idrecipe.push(this.allbook[i].id_recipe);
-            }
-            console.log(this.idrecipe);
-            for(var j=0;j<this.idrecipe.length;j++){
-              this.firestore.collection<Recipe>('Recipes',ref=>ref.where('id','==',this.idrecipe[j])).valueChanges().subscribe(val=>{
-                console.log(val);
-                this.allresep.push(val[0]);
-                console.log(this.allresep);        
-              })
-            }
-          });
-      });
-  
-     
   }
+  ionViewWillEnter(){
+    this.allresep=[];
+    this.allbook=[];
+    this.idrecipe=[];
+    console.log("tes");
+    this.bookCol=this.firestore.collection<BookmarkedRecipe>('Bookmark');
+    this.storage.get('auth-token').then(async val=>{
+      this.iduser=val;
+      this.firestore.collection<BookmarkedRecipe>('Bookmark',ref=>ref.where('id_user','==',this.iduser)).valueChanges().subscribe(vala =>{
+          this.allbook=vala;
+          for(var i=0;i<this.allbook.length;i++ ){
+            // console.log(this.allbook[i].id_recipe);
+            this.idrecipe.push(this.allbook[i].id_recipe);
+          }
 
-  ngOnInit() {
+          for(var j=0;j<this.idrecipe.length;j++){
+            this.firestore.collection<Recipe>('Recipes',ref=>ref.where('id','==',this.idrecipe[j])).valueChanges().subscribe(val=>{
+              if(this.allresep != val){
+                // console.log(this.allresep[0]);
+                // console.log(val);
+                this.allresep.push(val[0]);
+                // console.log(this.allresep);        
+              }
+              else{
+                console.log("sudah ada");
+              }              
+            })
+          }
+        });
+    });
+  }
+  ngOnInit(){
+  
   }
   detail(idresep:string){
-    console.log(idresep);
+    // console.log(idresep);
     this.router.navigate(['/tabs/details-recipe-online',idresep]);
   }
 }
