@@ -55,14 +55,6 @@
 
       <div class="section">
         <h3 class="section-title">Comments</h3>
-
-        <div class="comment-content">
-          <div class="comment-header">
-            <h4>Gerry</h4>
-          </div>
-          <p class="comment-txt">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae sit fugit nam impedit rerum unde animi maiores quod dignissimos optio recusandae magnam voluptas tenetur obcaecati quis iure, rem repellat mollitia?</p>
-        </div>
-
         <div class="comment-content comment-input">
           <div class="comment-header">
             <h6 class="comment-title">My Rating</h6>
@@ -72,6 +64,14 @@
             
           </textarea>
           <ion-button color="primary" (click)="post_comment()">Send</ion-button>
+        </div>
+
+        <div class="comment-content" *ngFor="let comment of allComments">
+          <div class="comment-header">
+            <h4>{{comment.id_user}}</h4>
+            <ion-icon name="star" *ngFor="let num of arrayComment(comment.rating); let i=index" class="star-review"></ion-icon>
+          </div>
+          <p class="comment-txt">{{comment.content}}</p>
         </div>
       </div>
 

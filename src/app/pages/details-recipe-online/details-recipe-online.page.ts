@@ -15,6 +15,13 @@ import { CategoryPageRoutingModule } from '../category/category-routing.module';
 import { stringify } from 'querystring';
 import { Comment } from 'src/app/models/comment.model';
 
+enum COLORS {
+  GREY = "#E0E0E0",
+  GREEN = "#76FF03",
+  YELLOW = "#FFCA28",
+  RED = "#DD2C00"
+}
+
 @Component({
   selector: 'app-details-recipe-online',
   templateUrl: './details-recipe-online.page.html',
@@ -38,6 +45,7 @@ export class DetailsRecipeOnlinePage implements OnInit {
   rating: number;
   idUser: string;
   comment: string;
+  allComments: Comment[];
 
   private bookCol: AngularFirestoreCollection<BookmarkedRecipe>;
   constructor(public Activatedrouter: ActivatedRoute,
@@ -96,6 +104,8 @@ export class DetailsRecipeOnlinePage implements OnInit {
           })
       })
     })
+
+    this.refreshComments();
   }
 
   getResep(): AngularFirestoreDocument<Recipe> {
@@ -164,7 +174,11 @@ export class DetailsRecipeOnlinePage implements OnInit {
     return this.loading.present();
   }
 
-  cekbookmark() {
+  refreshComments(){
+    this.firestore.collection<Comment>('Comments',ref=>ref.where('id_recipe','==',this.id)).valueChanges().subscribe(val =>{
+      this.allComments = val
+      console.log(this.allComments)
+    });
   }
 
   post_comment(){
@@ -185,6 +199,12 @@ export class DetailsRecipeOnlinePage implements OnInit {
         console.log(error);
       });
       this.loading.dismiss();
+
+      this.refreshComments();
     });
+  }
+
+  arrayComment(n: number): any[] {
+    return Array(n);
   }
 }

@@ -40,10 +40,7 @@ export class BookmarkRecipesPage implements OnInit {
           for(var j=0;j<this.idrecipe.length;j++){
             this.firestore.collection<Recipe>('Recipes',ref=>ref.where('id','==',this.idrecipe[j])).valueChanges().subscribe(val=>{
               if(this.allresep != val){
-                // console.log(this.allresep[0]);
-                // console.log(val);
                 this.allresep.push(val[0]);
-                // console.log(this.allresep);        
               }
               else{
                 console.log("sudah ada");
@@ -57,7 +54,6 @@ export class BookmarkRecipesPage implements OnInit {
   
   }
   detail(idresep:string){
-    // console.log(idresep);
     this.router.navigate(['/tabs/details-recipe-online',idresep]);
   }
 }
