@@ -11,13 +11,26 @@
   <div id="container">
     <ion-row *ngFor="let recipe of recipeList">
       <ion-col>
-        <ion-card (click)="toDetails(recipe.id)">
+        <ion-card (click)="toDetails(recipe.id)" class="card-custom">
           <ion-card-header>
-            <ion-card-title>{{recipe.title}}</ion-card-title>
+            <ion-card-title class="card-header-custom">
+              <ion-row>
+                <ion-col style="align-self: center;">
+                  {{recipe.title}}
+                </ion-col>
+                <ion-col style="text-align: right;">
+                  <ion-chip color="danger" class="chip-category">
+                    <ion-label>{{recipe.category}}</ion-label>
+                </ion-chip>
+                </ion-col>
+              </ion-row>
+            </ion-card-title>
             <ion-img [src]="recipe.imageLink"></ion-img>
           </ion-card-header>
-          <ion-card-content>
-            {{recipe.description}}
+          <ion-card-content class="card-content-custom">
+            <div class="content-custom">
+              {{recipe.description}}
+            </div>
           </ion-card-content>
         </ion-card>    
       </ion-col>

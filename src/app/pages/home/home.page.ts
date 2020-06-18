@@ -6,6 +6,7 @@ import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument 
 import { map, throwIfEmpty, filter } from 'rxjs/operators';
 import { Recipe } from 'src/app/models/recipe.model';
 import { first } from 'rxjs/operators';
+import { Category } from 'src/app/models/category.model';
 
 @Component({
   selector: 'app-home',
@@ -33,14 +34,24 @@ export class HomePage implements OnInit {
     return foodList;
   }
 
+  async initializeCategory(): Promise<any>{
+    const categoryList = await this.fireStore.collection<Category>('Category').valueChanges().pipe(first()).toPromise();
+    console.log(this.recipeList.length);
+    for(let i=0;i<this.recipeList.length;i++){
+      for(let j=0;j<categoryList.length;j++){
+        if(categoryList[j].id == this.recipeList[i].id_category){
+          this.recipeList[i].category =  categoryList[j].title;
+        }
+      }
+    }
+  }
+
   async ngOnInit() {
     this.recipeList = await this.initializeItems();
-    console.log(this.recipeList);
+    await this.initializeCategory();
   }
 
   async ionViewWillEnter(){
-    // this.recipeList = await this.initializeItems();
-    // console.log(this.recipeList);
   }
 
   async search(evt) {

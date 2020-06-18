@@ -10,21 +10,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-row id="category" class="category-tab">
-    <ion-col>
-      <ion-chip>
-        <ion-icon name="pin" color="primary"></ion-icon>
-        <div *ngIf="cariCategory | async">
-          <ion-label>{{category.title}}</ion-label>
-        </div>
-        <ion-icon name="close"></ion-icon>
-      </ion-chip>
-    </ion-col>
-  </ion-row>
   <div id="container" *ngIf="cariresep | async">
     <ion-row id="image">
       <ion-img [src]="detresep.imageLink"></ion-img>
     </ion-row>
+    <ion-chip color="danger" class="chip-category">
+      <div *ngIf="cariCategory | async">
+        <ion-label>{{category.title}}</ion-label>
+      </div>
+    </ion-chip>
     <ion-button color="light" (click)="like()" class="bookmark-btn">
       <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
     </ion-button>
