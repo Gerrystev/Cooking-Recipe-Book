@@ -1,29 +1,77 @@
-ion-searchbar{
-    --color: #000;
-    --placeholder-color: #000;
-    --border-radius: 20px;
-    --box-shadow: none;
-    --background: #f2f2f2;
+@font-face {
+  font-family: Bebas-Regular;
+  src: url(../../../assets/fonts/Bebas-Regular.otf);
 }
 
-.card-header-custom{
-    margin-bottom: 10px;
+@font-face {
+  font-family: Poppins-M;
+  src: url(../../../assets/fonts/Poppins-Medium.otf);
 }
 
-.card-content-custom{
-    height: 50px;
-    text-align: center;
+@font-face {
+  font-family: Poppins-B;
+  src: url(../../../assets/fonts/Poppins-Bold.otf);
 }
 
-div.content-custom{
-    overflow: hidden;
-    height: 40px;
+@font-face {
+  font-family: Mont-M;
+  src: url(../../../assets/fonts/Montserrat-Medium.otf);
 }
 
-ion-toolbar{
-    margin-top: 10px;
+.header-color {
+  background-color: #002e47 !important;
+  color: #f9f9f9 !important;
 }
 
-.chip-category{
-    
+ion-searchbar {
+  --color: #000;
+  --placeholder-color: #000;
+  --border-radius: 5px;
+  --box-shadow: none;
+  --background: #f2f2f2;
+  font-family: Mont-M;
+  margin-right: -20px;
 }
+
+ion-card {
+  background: linear-gradient(
+    75deg,
+    rgba(0, 46, 71, 1) 0%,
+    rgba(2, 53, 79, 1) 40%,
+    rgb(0, 70, 107) 100%
+  );
+}
+
+ion-card-title {
+  color: adjust-hue($color: #f9f9f9, $degrees: 0);
+  font-family: Poppins-B;
+}
+
+.card-header-custom {
+  margin-bottom: 10px;
+}
+
+.card-content-custom {
+  height: 50px;
+  //   text-align: center;
+}
+
+div.content-custom {
+  overflow: hidden;
+  height: 40px;
+}
+
+ion-content {
+  --background: #eae2b7 !important;
+}
+
+ion-chip {
+  --background: #eae2b7;
+  --color: #002e47;
+  font-family: Mont-M;
+}
+
+// ion-toolbar {
+//   margin-top: 10px;
+//   //   background-color: #002e47 !important;
+// }

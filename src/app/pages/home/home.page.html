@@ -1,9 +1,13 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-menu-button color="primary"></ion-menu-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-searchbar placeholder="Search Menu.." (ionInput)="search($event)" animated></ion-searchbar>
+    <ion-searchbar
+      placeholder="Search Menu.."
+      (ionInput)="search($event)"
+      animated
+    ></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
@@ -19,20 +23,20 @@
                   {{recipe.title}}
                 </ion-col>
                 <ion-col style="text-align: right;">
-                  <ion-chip color="danger" class="chip-category">
+                  <ion-chip class="chip-category">
                     <ion-label>{{recipe.category}}</ion-label>
-                </ion-chip>
+                  </ion-chip>
                 </ion-col>
               </ion-row>
             </ion-card-title>
-            <ion-img [src]="recipe.imageLink"></ion-img>
+            <!-- <ion-img [src]="recipe.imageLink"></ion-img> -->
           </ion-card-header>
           <ion-card-content class="card-content-custom">
             <div class="content-custom">
               {{recipe.description}}
             </div>
           </ion-card-content>
-        </ion-card>    
+        </ion-card>
       </ion-col>
     </ion-row>
   </div>

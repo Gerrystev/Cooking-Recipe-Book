@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-menu-button color="primary"></ion-menu-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Add Recipe</ion-title>
+    <ion-title>Add New Recipe</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -17,8 +17,8 @@
     <ion-row>
       <ion-col>
         <div class="fileUpload btn btn-primary">
-          <span>ADD IMAGE</span>             
-          <input type="file" class="upload" (change)="fileChange($event)"/>
+          <span>ADD IMAGE</span>
+          <input type="file" class="upload" (change)="fileChange($event)" />
         </div>
       </ion-col>
     </ion-row>
@@ -27,7 +27,10 @@
     </label>
     <ion-row>
       <ion-col>
-        <ion-input placeholder="Thin Crusted Pizza" [(ngModel)]="title"></ion-input>
+        <ion-input
+          placeholder="e.g. Thin Crusted Pizza"
+          [(ngModel)]="title"
+        ></ion-input>
       </ion-col>
     </ion-row>
     <label>
@@ -35,7 +38,10 @@
     </label>
     <ion-row>
       <ion-col>
-        <ion-input placeholder="Everybody love pizza let's make this pizza!" [(ngModel)]="description"></ion-input>
+        <ion-input
+          placeholder="e.g Everybody love pizza let's make this pizza!"
+          [(ngModel)]="description"
+        ></ion-input>
       </ion-col>
     </ion-row>
     <label>
@@ -43,25 +49,34 @@
     </label>
     <ion-row>
       <ion-select [(ngModel)]="category">
-        <ion-select-option *ngFor="let category of categoryCloud | async" value="{{category.id}}">{{category.title}}
+        <ion-select-option
+          *ngFor="let category of categoryCloud | async"
+          value="{{category.id}}"
+          >{{category.title}}
         </ion-select-option>
       </ion-select>
     </ion-row>
-    <ion-row>
-
-    </ion-row>
+    <ion-row> </ion-row>
     <label>
       <h3>Ingredients</h3>
     </label>
     <ion-row *ngFor="let ingredient of ingredientsArray">
       <ion-col>
-        <ion-input class="ingredients-field" placeholder="1kg Sugar"></ion-input>
+        <ion-input
+          class="ingredients-field"
+          placeholder="e.g. 1kg Sugar"
+        ></ion-input>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-button expand="block" fill="outline" (click)="add_ingredients_field()" class="add_field-button">Add
-          Ingredients</ion-button>
+        <ion-button
+          expand="block"
+          fill="outline"
+          (click)="add_ingredients_field()"
+          class="add_field-button"
+          >Add Ingredients</ion-button
+        >
       </ion-col>
     </ion-row>
     <label id="directions-section">
@@ -69,28 +84,47 @@
     </label>
     <ion-row *ngFor="let direction of directionsArray">
       <ion-col>
-        <ion-input class="directions-field" placeholder="Boil the water for 10 minutes"></ion-input>
+        <ion-input
+          class="directions-field"
+          placeholder="e.g Boil the water for 10 minutes"
+        ></ion-input>
       </ion-col>
     </ion-row>
-    <ion-button expand="block" fill="outline" (click)="add_directions_field()" class="add_field-button">Add Directions
+    <ion-button
+      expand="block"
+      fill="outline"
+      (click)="add_directions_field()"
+      class="add_field-button"
+      >Add Directions
     </ion-button>
     <label>
       <h3>Time to Cook</h3>
     </label>
     <ion-row>
       <ion-col>
-        <ion-input type="number" [(ngModel)]="hours" placeholder="00"></ion-input>
+        <ion-input
+          type="number"
+          [(ngModel)]="hours"
+          placeholder="e.g. 00"
+        ></ion-input>
       </ion-col>
-      <ion-col style="padding-top: 15px;">
+      <ion-col style="padding-top: 15px;" class="time-label">
         Hours
       </ion-col>
       <ion-col>
-        <ion-input type="number" [(ngModel)]="minutes" placeholder="40"></ion-input>
+        <ion-input
+          type="number"
+          [(ngModel)]="minutes"
+          placeholder="e.g. 40"
+        ></ion-input>
       </ion-col>
-      <ion-col style="padding-top: 15px;">
+      <ion-col style="padding-top: 15px;" class="time-label">
         Minutes
       </ion-col>
     </ion-row>
-    <ion-button color="success" expand="block" (click)="upload_recipe()">Upload Menu</ion-button>
+    <br /><br />
+    <ion-button expand="block" (click)="upload_recipe()"
+      >Upload Menu</ion-button
+    >
   </div>
 </ion-content>

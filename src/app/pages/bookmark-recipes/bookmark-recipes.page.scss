@@ -1,7 +1,59 @@
-ion-searchbar{
-    --color: #000;
-    --placeholder-color: #000;
-    --border-radius: 20px;
-    --box-shadow: none;
-    --background: #f2f2f2;
+@font-face {
+  font-family: Bebas-Regular;
+  src: url(../../../assets/fonts/Bebas-Regular.otf);
+}
+
+@font-face {
+  font-family: Poppins-M;
+  src: url(../../../assets/fonts/Poppins-Medium.otf);
+}
+
+@font-face {
+  font-family: Poppins-B;
+  src: url(../../../assets/fonts/Poppins-Bold.otf);
+}
+
+@font-face {
+  font-family: Mont-M;
+  src: url(../../../assets/fonts/Montserrat-Medium.otf);
+}
+
+.header-color {
+  background-color: #002e47 !important;
+  color: #f9f9f9 !important;
+}
+
+ion-searchbar {
+  --color: #000;
+  --placeholder-color: #000;
+  --border-radius: 5px;
+  --box-shadow: none;
+  --background: #f2f2f2;
+  font-family: Mont-M;
+}
+
+ion-content {
+  --background: linear-gradient(
+    150deg,
+    rgba(12, 53, 70, 1) 0%,
+    rgba(23, 92, 120, 0.98) 100%
+  );
+  // --background: #eae2b7;
+}
+
+ion-list {
+  --background: #eae2b7;
+  background: linear-gradient(
+    150deg,
+    rgba(12, 53, 70, 1) 0%,
+    rgba(23, 92, 120, 0.98) 100%
+  );
+}
+
+ion-item {
+  --background: #002e47;
+  background: #002e47;
+  border-bottom: 1mm solid rgba(241, 241, 241, 0.171);
+  --border-bottom: 1px solid #eae2b7;
+  font-family: Poppins-M;
 }

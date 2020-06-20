@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/home"></ion-back-button>
     </ion-buttons>
@@ -27,13 +27,13 @@
       <div class="section">
         <h3 class="section-title">Time to cook:</h3>
         <div class="section-content">
-          <p class="section-text">{{detresep.time_cook}}</p>
+          <p class="section-text time-text">{{detresep.time_cook}}</p>
         </div>
       </div>
       <div class="section">
         <h3 class="section-title">Ingredients</h3>
         <div class="section-content">
-          <div id="ingredients-slot" *ngFor="let x of ingredients" >
+          <div id="ingredients-slot" *ngFor="let x of ingredients">
             <ion-list class="section-text">{{x.description}}</ion-list>
           </div>
         </div>
@@ -42,7 +42,9 @@
         <h3 class="section-title">Directions</h3>
         <div class="section-content">
           <div id="directions-slot" *ngFor="let x of direct">
-            <ion-list class="section-text">Step {{x.step + 1}}. {{x.description}}</ion-list>
+            <ion-list class="section-text"
+              >Step {{x.step + 1}}. {{x.description}}</ion-list
+            >
           </div>
         </div>
       </div>
@@ -55,20 +57,25 @@
             <rating [(rating)]="rating"></rating>
           </div>
           <textarea placeholder="Post your comment...." [(ngModel)]="comment">
-            
           </textarea>
           <ion-button color="primary" (click)="post_comment()">Send</ion-button>
         </div>
 
-        <div class="comment-content" *ngFor="let comment of allComments">
+        <div
+          class="comment-content comment-contents"
+          *ngFor="let comment of allComments"
+        >
           <div class="comment-header">
             <h4>{{comment.id_user}}</h4>
-            <ion-icon name="star" *ngFor="let num of arrayComment(comment.rating); let i=index" class="star-review"></ion-icon>
+            <ion-icon
+              name="star"
+              *ngFor="let num of arrayComment(comment.rating); let i=index"
+              class="star-review"
+            ></ion-icon>
           </div>
           <p class="comment-txt">{{comment.content}}</p>
         </div>
       </div>
-
     </div>
 
     <!--
