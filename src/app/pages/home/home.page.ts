@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ActionSheetController, Platform } from '@ionic/angular';
-import { Observable } from 'rxjs';
-import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { map, throwIfEmpty, filter } from 'rxjs/operators';
-import { Recipe } from 'src/app/models/recipe.model';
-import { first } from 'rxjs/operators';
-import { Category } from 'src/app/models/category.model';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ActionSheetController, Platform } from "@ionic/angular";
+import { Observable } from "rxjs";
+import {
+  AngularFirestoreCollection,
+  AngularFirestore,
+  AngularFirestoreDocument,
+} from "@angular/fire/firestore";
+import { map, throwIfEmpty, filter } from "rxjs/operators";
+import { Recipe } from "src/app/models/recipe.model";
+import { first } from "rxjs/operators";
+import { Category } from "src/app/models/category.model";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  selector: "app-home",
+  templateUrl: "./home.page.html",
+  styleUrls: ["./home.page.scss"],
 })
 export class HomePage implements OnInit {
   private recipeCloud: Observable<Recipe[]>;
@@ -19,28 +23,35 @@ export class HomePage implements OnInit {
   public recipeList = [];
 
   constructor(
-    private activatedRoute: ActivatedRoute, 
-    public router:Router,
+    private activatedRoute: ActivatedRoute,
+    public router: Router,
     private actionSheetController: ActionSheetController,
     private plt: Platform,
-    private fireStore: AngularFirestore,
+    private fireStore: AngularFirestore
   ) {
-    this.recipeColumn = this.fireStore.collection<Recipe>('Recipes');
+    this.recipeColumn = this.fireStore.collection<Recipe>("Recipes");
   }
 
   async initializeItems(): Promise<any> {
-    const foodList = await this.fireStore.collection('Recipes')
-      .valueChanges().pipe(first()).toPromise();
+    const foodList = await this.fireStore
+      .collection("Recipes")
+      .valueChanges()
+      .pipe(first())
+      .toPromise();
     return foodList;
   }
 
-  async initializeCategory(): Promise<any>{
-    const categoryList = await this.fireStore.collection<Category>('Category').valueChanges().pipe(first()).toPromise();
+  async initializeCategory(): Promise<any> {
+    const categoryList = await this.fireStore
+      .collection<Category>("Category")
+      .valueChanges()
+      .pipe(first())
+      .toPromise();
     console.log(this.recipeList.length);
-    for(let i=0;i<this.recipeList.length;i++){
-      for(let j=0;j<categoryList.length;j++){
-        if(categoryList[j].id == this.recipeList[i].id_category){
-          this.recipeList[i].category =  categoryList[j].title;
+    for (let i = 0; i < this.recipeList.length; i++) {
+      for (let j = 0; j < categoryList.length; j++) {
+        if (categoryList[j].id == this.recipeList[i].id_category) {
+          this.recipeList[i].category = categoryList[j].title;
         }
       }
     }
@@ -51,30 +62,31 @@ export class HomePage implements OnInit {
     await this.initializeCategory();
   }
 
-  async ionViewWillEnter(){
-  }
+  async ionViewWillEnter() {}
 
   async search(evt) {
-    this.recipeList = await this.initializeItems();
     const searchTerm = evt.srcElement.value;
-  
+
     if (!searchTerm) {
+      this.ngOnInit();
       return;
     }
-  
-    this.recipeList = this.recipeList.filter(currentRecipe => {
+
+    this.recipeList = this.recipeList.filter((currentRecipe) => {
       if (currentRecipe.title && searchTerm) {
-        return (currentRecipe.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
+        return (
+          currentRecipe.title.toLowerCase().indexOf(searchTerm.toLowerCase()) >
+          -1
+        );
       }
     });
   }
 
-  kelogin(){
-    this.router.navigate(['/login']);
+  kelogin() {
+    this.router.navigate(["/login"]);
   }
 
-  toDetails(id: string){
-    this.router.navigate(['/tabs/details-recipe-online', id]);
+  toDetails(id: string) {
+    this.router.navigate(["/tabs/details-recipe-online", id]);
   }
-
 }

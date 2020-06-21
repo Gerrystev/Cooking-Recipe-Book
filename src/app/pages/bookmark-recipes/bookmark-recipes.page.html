@@ -3,7 +3,12 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-searchbar placeholder="Search Bookmark.." animated></ion-searchbar>
+    <ion-searchbar
+      placeholder="Search Bookmark.."
+      (ionInput)="search($event)"
+      animated
+    >
+    </ion-searchbar>
   </ion-toolbar>
 </ion-header>
 

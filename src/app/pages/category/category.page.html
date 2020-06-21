@@ -1,26 +1,53 @@
 <ion-header>
-	<ion-toolbar>
-		<ion-buttons slot="start">
-			<ion-menu-button color="primary"></ion-menu-button>
-		</ion-buttons>
-		<ion-searchbar placeholder="Search Category.." (ionInput)="search($event)" animated></ion-searchbar>
-	</ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-searchbar
+      placeholder="Search Category.."
+      (ionInput)="search($event)"
+      animated
+    ></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-	<div id="container">
-		<ion-row>
-			<ion-col *ngFor="let category of categoryList">
-				<ion-card>
-					<ion-card-header>
-						<ion-card-title>{{category.title}}</ion-card-title>
-						<ion-img [src]="category.imageLink"></ion-img>
-					</ion-card-header>
-					<ion-card-content>
-						{{category.description}}
-					</ion-card-content>
-				</ion-card>
-			</ion-col>
-		</ion-row>
-	</div>
+  <div id="container">
+    <ion-row *ngIf="showCat">
+      <ion-col *ngFor="let category of categoryList">
+        <ion-card (click)="searchRecipe(category.id)">
+          <ion-card-header>
+            <ion-card-title>{{category.title}}</ion-card-title>
+            <ion-img [src]="category.imageLink"></ion-img>
+          </ion-card-header>
+          <ion-card-content>
+            {{category.description}}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <div id="recipe-container" *ngIf="showRec">
+      <ion-row *ngFor="let recipe of recipeList">
+        <ion-col>
+          <ion-card (click)="toDetails(recipe.id)" class="card-custom">
+            <ion-card-header>
+              <ion-card-title class="card-header-custom">
+                <ion-row>
+                  <ion-col style="align-self: center;">
+                    {{recipe.title}}
+                  </ion-col>
+                </ion-row>
+              </ion-card-title>
+              <!-- <ion-img [src]="recipe.imageLink"></ion-img> -->
+            </ion-card-header>
+            <ion-card-content class="card-content-custom">
+              <div class="content-custom">
+                {{recipe.description}}
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
 </ion-content>
