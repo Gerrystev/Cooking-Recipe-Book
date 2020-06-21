@@ -68,84 +68,96 @@ export class UploadRecipePage implements OnInit {
   }
 
   upload_recipe() {
-    var recipeId;
-    let classIngredients = <HTMLCollectionOf<HTMLIonInputElement>>(
-      document.getElementsByClassName("ingredients-field")
-    );
-    let classDirections = <HTMLCollectionOf<HTMLIonInputElement>>(
-      document.getElementsByClassName("directions-field")
-    );
-
-    // Insert Recipe
-    this.storage.get('auth-token').then(async val => {
-      let tempRecipe = {
-        id: "string",
-        title: this.title,
-        description: this.description,
-        time_cook: this.hours + " Hours " + this.minutes + " Minutes",
-        imageLink: "File",
-        id_user: val,
-        id_category: this.category,
-      };
-
-      this.recipeColumn.add(tempRecipe).then(async (resp) => {
-        recipeId = resp.id;
-        const imageUrl = await this.uploadFile(resp.id, this.selectedFile);
-        this.recipeColumn
-          .doc(resp.id)
-          .update({
-            id: resp.id,
-            imageLink: imageUrl || null,
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-
-        // insert ingredients to firebase
-        for (let i = 0; i < classIngredients.length; i++) {
-          console.log("Ingredients : " + classIngredients[i].value);
-
-          let tempIngredient = {
-            id: "string",
-            description: classIngredients[i].value,
-            step: i,
-            id_recipe: recipeId,
-          };
-          this.ingredientsColumn.add(tempIngredient).then((resp) => {
-            this.ingredientsColumn
-              .doc(resp.id)
-              .update({
-                id: resp.id,
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          });
-        }
-
-        // Insert Directions to Firebase
-        for (let i = 0; i < classDirections.length; i++) {
-          console.log("Directions : " + classDirections[i].value);
-
-          let tempDirection = {
-            id: "string",
-            description: classDirections[i].value,
-            step: i,
-            id_recipe: recipeId,
-          };
-          this.directionsColumn.add(tempDirection).then(async (resp) => {
-            this.directionsColumn
-              .doc(resp.id)
-              .update({
-                id: resp.id,
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          });
-        }
+    if(typeof(this.img1)==="undefined" ||
+      typeof(this.description) === "undefined" ||
+      typeof(this.title)==="undefined"||
+      typeof(this.category)==="undefined"||
+      this.ingredientsArray === []||
+      this.directionsArray === []||
+      typeof(this.hours)==="undefined"||
+      typeof(this.minutes)==="undefined"){
+        alert("Fill in the Forms!");
+    }
+    else{
+      var recipeId;
+      let classIngredients = <HTMLCollectionOf<HTMLIonInputElement>>(
+        document.getElementsByClassName("ingredients-field")
+      );
+      let classDirections = <HTMLCollectionOf<HTMLIonInputElement>>(
+        document.getElementsByClassName("directions-field")
+      );
+  
+      // Insert Recipe
+      this.storage.get('auth-token').then(async val => {
+        let tempRecipe = {
+          id: "string",
+          title: this.title,
+          description: this.description,
+          time_cook: this.hours + " Hours " + this.minutes + " Minutes",
+          imageLink: "File",
+          id_user: val,
+          id_category: this.category,
+        };
+  
+        this.recipeColumn.add(tempRecipe).then(async (resp) => {
+          recipeId = resp.id;
+          const imageUrl = await this.uploadFile(resp.id, this.selectedFile);
+          this.recipeColumn
+            .doc(resp.id)
+            .update({
+              id: resp.id,
+              imageLink: imageUrl || null,
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+  
+          // insert ingredients to firebase
+          for (let i = 0; i < classIngredients.length; i++) {
+            console.log("Ingredients : " + classIngredients[i].value);
+  
+            let tempIngredient = {
+              id: "string",
+              description: classIngredients[i].value,
+              step: i,
+              id_recipe: recipeId,
+            };
+            this.ingredientsColumn.add(tempIngredient).then((resp) => {
+              this.ingredientsColumn
+                .doc(resp.id)
+                .update({
+                  id: resp.id,
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            });
+          }
+  
+          // Insert Directions to Firebase
+          for (let i = 0; i < classDirections.length; i++) {
+            console.log("Directions : " + classDirections[i].value);
+  
+            let tempDirection = {
+              id: "string",
+              description: classDirections[i].value,
+              step: i,
+              id_recipe: recipeId,
+            };
+            this.directionsColumn.add(tempDirection).then(async (resp) => {
+              this.directionsColumn
+                .doc(resp.id)
+                .update({
+                  id: resp.id,
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            });
+          }
+        });
       });
-    });
+    }
   }
 
   async presentLoading() {
@@ -170,7 +182,7 @@ export class UploadRecipePage implements OnInit {
 
   fileChange(event) {
     this.selectedFile = event.target.files;
-    if (event.target.files && event.target.files[0]) {
+      if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
 
       reader.onload = (event: any) => {
@@ -181,5 +193,5 @@ export class UploadRecipePage implements OnInit {
     let fileList: FileList = event.target.files;
     let file: File = fileList[0];
     console.log(file);
-  }
+    } 
 }
