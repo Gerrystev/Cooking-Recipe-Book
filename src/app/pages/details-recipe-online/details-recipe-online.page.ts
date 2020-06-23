@@ -99,16 +99,14 @@ export class DetailsRecipeOnlinePage implements OnInit {
               // console.log(this.id);
               this.book = 1;
             }
+            if(this.book===0){
+              this.buttonColor="heart-outline";
+            }
+            else{
+              this.buttonColor="heart";
+            }
           })
       })
-      if(this.book===0){
-        this.buttonColor="heart-outline";
-      }
-      else{
-        this.buttonColor="heart";
-      }
-      console.log(this.book)
-      console.log(this.buttonColor);
     })
     this.refreshComments();
 
@@ -160,7 +158,7 @@ export class DetailsRecipeOnlinePage implements OnInit {
           }
           else {
             this.bookCol.doc(idbook).delete();
-            alert("Unbookmarked");
+            // alert("Unbookmarked");
           }
           this.loading.dismiss();
         });
