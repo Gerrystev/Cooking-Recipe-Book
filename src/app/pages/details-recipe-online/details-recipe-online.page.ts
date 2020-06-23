@@ -166,8 +166,6 @@ export class DetailsRecipeOnlinePage implements OnInit {
         });
       })
     }
-    // this.router.navigateByUrl(['/tabs/details-recipe-online', this.id]);
-    // location.reload();
     this.navCtrl.navigateRoot(['/tabs/details-recipe-online', this.id]);
   }
 
@@ -213,5 +211,7 @@ export class DetailsRecipeOnlinePage implements OnInit {
   arrayComment(n: number): any[] {
     return Array(n);
   }
-
+  backButton(){
+    this.router.navigate(['/tabs/home']);
+  }
 }

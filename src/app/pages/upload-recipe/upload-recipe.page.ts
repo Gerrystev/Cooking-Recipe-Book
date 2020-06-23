@@ -155,6 +155,7 @@ export class UploadRecipePage implements OnInit {
                 });
             });
           }
+          location.reload();
         });
       });
     }
