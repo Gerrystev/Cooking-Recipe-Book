@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+      <ion-back-button defaultHref="/pages/home"></ion-back-button>
     </ion-buttons>
     <div *ngIf="cariresep | async">
       <ion-title>{{detresep.title}}</ion-title>
@@ -19,8 +19,8 @@
         <ion-label>{{category.title}}</ion-label>
       </div>
     </ion-chip>
-    <ion-button color="light" (click)="like()" class="bookmark-btn">
-      <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
+    <ion-button  color="danger" (click)="like()" class="bookmark-btn">
+      <ion-icon slot="icon-only" [name]="buttonColor"></ion-icon>
     </ion-button>
 
     <div class="section-wrapper">
