@@ -11,8 +11,6 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { LoadingController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
-import { CategoryPageRoutingModule } from '../category/category-routing.module';
-import { stringify } from 'querystring';
 import { Comment } from 'src/app/models/comment.model';
 
 enum COLORS {
@@ -46,7 +44,7 @@ export class DetailsRecipeOnlinePage implements OnInit {
   idUser: string;
   comment: string;
   allComments: Comment[];
-
+  buttonColor:string;
   private bookCol: AngularFirestoreCollection<BookmarkedRecipe>;
   constructor(public Activatedrouter: ActivatedRoute,
     public router: Router,
@@ -69,23 +67,23 @@ export class DetailsRecipeOnlinePage implements OnInit {
       this.id = paramMap.get('idrecipe');
       this.cariresep = this.getResep().valueChanges();
       this.cariresep.subscribe(isiResep => {
-        console.log(isiResep);
+        // console.log(isiResep);
         this.detresep = isiResep;
         this.idCategory = isiResep.id_category;
         this.cariCategory = this.getCategory(this.idCategory).valueChanges();
         this.cariCategory.subscribe(isiCategory => {
-          console.log(isiCategory);
+          // console.log(isiCategory);
           this.category = isiCategory;
         })
       })
 
       this.firestore.collection<Ingredient>('Ingredients', ref => ref.where('id_recipe', '==', this.id)).valueChanges().subscribe(val => {
-        console.log(val);
+        // console.log(val);
         this.ingredients = val;
       });
 
       this.firestore.collection<Direction>('Directions', ref => ref.where('id_recipe', '==', this.id).orderBy('step')).valueChanges().subscribe(val => {
-        console.log(val);
+        // console.log(val);
         this.direct = val;
       });
       
@@ -97,15 +95,21 @@ export class DetailsRecipeOnlinePage implements OnInit {
               this.book = 0;
             }
             else if (val[0].id_recipe === this.id) {
-              console.log(val[0].id_recipe);
-              console.log(this.id);
+              // console.log(val[0].id_recipe);
+              // console.log(this.id);
               this.book = 1;
+            }
+            if(this.book===0){
+              this.buttonColor="heart-outline";
+            }
+            else{
+              this.buttonColor="heart";
             }
           })
       })
     })
-
     this.refreshComments();
+
   }
 
   getResep(): AngularFirestoreDocument<Recipe> {
@@ -118,9 +122,9 @@ export class DetailsRecipeOnlinePage implements OnInit {
 
   like() {
     this.presentLoading();
-    console.log(this.book);
+    // console.log(this.book);
     if (this.book === 0) {
-      console.log("tes");
+      // console.log("tes");
       var bookID;
       this.storage.get('auth-token').then(async val => {
         let tempbook = {
@@ -130,7 +134,7 @@ export class DetailsRecipeOnlinePage implements OnInit {
         };
         this.bookCol.add(tempbook).then(async (book) => {
           bookID = book.id;
-          console.log(bookID);
+          // console.log(bookID);
           this.bookCol.doc(book.id).update({
             id: book.id
           })
@@ -150,18 +154,16 @@ export class DetailsRecipeOnlinePage implements OnInit {
           this.bmk = val;
           idbook = this.bmk[0].id;
           if (typeof (idbook) === "undefined") {
-            console.log("Tidak terbookmarked");
+            // console.log("Tidak terbookmarked");
           }
           else {
             this.bookCol.doc(idbook).delete();
-            alert("Unbookmarked");
+            // alert("Unbookmarked");
           }
           this.loading.dismiss();
         });
       })
     }
-    // this.router.navigateByUrl(['/tabs/details-recipe-online', this.id]);
-    // location.reload();
     this.navCtrl.navigateRoot(['/tabs/details-recipe-online', this.id]);
   }
 
@@ -206,5 +208,8 @@ export class DetailsRecipeOnlinePage implements OnInit {
 
   arrayComment(n: number): any[] {
     return Array(n);
+  }
+  backButton(){
+    this.router.navigate(['/tabs/home']);
   }
 }

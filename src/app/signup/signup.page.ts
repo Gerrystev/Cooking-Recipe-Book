@@ -41,6 +41,7 @@ export class SignupPage implements OnInit {
       this.password="";
       this.email="";
       this.date=null;
+      this.route.navigate(['/login']);
     }
   }
 }
