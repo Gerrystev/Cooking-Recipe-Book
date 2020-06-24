@@ -212,8 +212,4 @@ export class DetailsRecipeOnlinePage implements OnInit {
   backButton(){
     this.router.navigate(['/tabs/home']);
   }
-  edit(){
-    alert("tes");
-    this.router.navigate(['/edit',this.id])
-  }
 }

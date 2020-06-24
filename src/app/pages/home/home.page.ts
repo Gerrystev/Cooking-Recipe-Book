@@ -60,6 +60,8 @@ export class HomePage implements OnInit {
   async ngOnInit() {
     this.recipeList = await this.initializeItems();
     await this.initializeCategory();
+
+    console.log(this.recipeList);
   }
 
   async ionViewWillEnter() {}

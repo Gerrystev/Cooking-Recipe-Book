@@ -28,12 +28,7 @@ const routes: Routes = [
   {
     path: 'category',
     loadChildren: () => import('./pages/category/category.module').then(m => m.CategoryPageModule)
-  },
-  {
-    path: 'edit/:idrecipe',
-    loadChildren: () => import('./edit/edit.module').then( m => m.EditPageModule)
   }
-
 
 ];
 
