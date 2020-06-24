@@ -2,17 +2,28 @@
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
-        <ion-list>
+        <ion-list id="logout-list">
           <ion-list-header>User Menu</ion-list-header>
           <ion-menu-toggle auto-hide="false">
-            <ion-item (click)="logout()" [routerLink]="['/login']">
+            <ion-item
+              (click)="logout()"
+              [routerLink]="['/login']"
+              id="logout-button"
+            >
               <ion-icon slot="start" name="log-out-outline"></ion-icon>
-              <ion-label>Logout</ion-label>
+              <ion-label class="logout-label">Logout</ion-label>
             </ion-item>
           </ion-menu-toggle>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item (click)="selectedIndex = i" [routerLink]="[p.url]" [class.selected]="selectedIndex == i">
-              <ion-icon slot="start" name="{{p.icon}}"></ion-icon>
+          <ion-menu-toggle
+            auto-hide="false"
+            *ngFor="let p of appPages; let i = index"
+          >
+            <ion-item
+              (click)="selectedIndex = i"
+              [routerLink]="[p.url]"
+              [class.selected]="selectedIndex == i"
+            >
+              <ion-icon slot="start" name="{{ p.icon }}"></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>

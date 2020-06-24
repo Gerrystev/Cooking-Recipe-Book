@@ -1,3 +1,71 @@
-.myview{
-    background-image:url('../../assets/images/login.jpg')
+@font-face {
+  font-family: Judul;
+  src: url(../../assets/fonts/ChickenPie.ttf);
+}
+
+@font-face {
+  font-family: Poppins-M;
+  src: url(../../assets/fonts/Poppins-Medium.otf);
+}
+
+@font-face {
+  font-family: Poppins-B;
+  src: url(../../assets/fonts/Poppins-Bold.otf);
+}
+
+@font-face {
+  font-family: Mont-M;
+  src: url(../../assets/fonts/Montserrat-Medium.otf);
+}
+
+@font-face {
+  font-family: GI-R;
+  src: url(../../assets/fonts/GlacialIndifference-Regular.otf);
+}
+
+.myview {
+  background-image: url("../../assets/images/login.jpg");
+}
+
+ion-item {
+  //   background: #002e47;
+  --background: rgba(31, 30, 30, 0.65);
+  color: rgb(228, 228, 228);
+  font-family: Poppins-M;
+}
+
+ion-input {
+  font-family: GI-R;
+  background: transparent;
+  --color: #f5fbff;
+  --placeholder-color: #ebebeb;
+}
+
+ion-label {
+  font-family: GI-R;
+  color: #f9f9f9;
+}
+
+ion-list {
+  background: transparent;
+  --background: transparent;
+}
+
+ion-content {
+  --background: url("../../assets/images/bg2.jpg");
+}
+
+.app-title {
+  font-size: 3rem;
+  font-family: Judul;
+  color: #002e47;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgba(234, 226, 183, 0.6);
+}
+
+ion-button {
+  font-family: Poppins-M;
+  color: #f9f9f9;
+  background-color: #002e47;
+  border-radius: 5px;
 }

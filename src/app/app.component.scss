@@ -1,47 +1,52 @@
-ion-menu ion-content {
-  --background: var(--ion-item-background, var(--ion-background-color, #fff));
+// ion-menu ion-content {
+//   --background: var(--ion-item-background, var(--ion-background-color, #fff));
+// }
+
+@font-face {
+  font-family: Poppins-M;
+  src: url(../assets/fonts/Poppins-Medium.otf);
 }
 
-ion-menu.md ion-content {
-  --padding-start: 8px;
-  --padding-end: 8px;
-  --padding-top: 20px;
-  --padding-bottom: 20px;
-}
+// ion-menu.md ion-content {
+//   --padding-start: 8px;
+//   --padding-end: 8px;
+//   --padding-top: 20px;
+//   --padding-bottom: 20px;
+// }
 
-ion-menu.md ion-list {
-  padding: 20px 0;
-}
+// ion-menu.md ion-list {
+//   padding: 20px 0;
+// }
 
-ion-menu.md ion-note {
-  margin-bottom: 30px;
-}
+// ion-menu.md ion-note {
+//   margin-bottom: 30px;
+// }
 
-ion-menu.md ion-list-header,
-ion-menu.md ion-note {
-  padding-left: 10px;
-}
+// ion-menu.md ion-list-header,
+// ion-menu.md ion-note {
+//   padding-left: 10px;
+// }
 
-ion-menu.md ion-list#inbox-list {
-  border-bottom: 1px solid var(--ion-color-step-150, #d7d8da);
-}
+// ion-menu.md ion-list#inbox-list {
+//   border-bottom: 1px solid var(--ion-color-step-150, #d7d8da);
+// }
 
-ion-menu.md ion-list#inbox-list ion-list-header {
-  font-size: 22px;
-  font-weight: 600;
+// ion-menu.md ion-list#inbox-list ion-list-header {
+//   font-size: 22px;
+//   font-weight: 600;
 
-  min-height: 20px;
-}
+//   min-height: 20px;
+// }
 
-ion-menu.md ion-list#labels-list ion-list-header {
-  font-size: 16px;
+// ion-menu.md ion-list#labels-list ion-list-header {
+//   font-size: 16px;
 
-  margin-bottom: 18px;
+//   margin-bottom: 18px;
 
-  color: #757575;
+//   color: #757575;
 
-  min-height: 26px;
-}
+//   min-height: 26px;
+// }
 
 ion-menu.md ion-item {
   --padding-start: 10px;
@@ -116,4 +121,26 @@ ion-note {
 
 ion-item.selected {
   --color: var(--ion-color-primary);
+}
+
+ion-content,
+ion-list {
+  --background: #011622;
+  background: #011622;
+  font-family: Poppins-M;
+}
+
+ion-menu-toggle #logout-button {
+  background: transparent;
+  --background: transparent;
+
+  font-family: Poppins-M;
+}
+
+#logout-button > .logout-label {
+  font-family: Poppins-M;
+  background: transparent;
+  --background: transparent;
+  color: #616e7e;
+  --color: #616e7e;
 }
